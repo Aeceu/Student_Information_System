@@ -77,18 +77,7 @@ export const getAllStudents = async (req: Request, res: Response) => {
         first_name: true,
         middle_name: true,
         last_name: true,
-        age: true,
-        birth_date: true,
-        address: true,
-        contact_number: true,
-        email: true,
-        role: true,
         type: true,
-        school_college: true,
-        school_course: true,
-        school_section: true,
-        school_year: true,
-        profile_image: true,
       },
     });
 

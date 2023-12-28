@@ -8,7 +8,9 @@ import {
   TableCell,
 } from "./ui/table";
 import { LuLoader2, LuUserX2 } from "react-icons/lu";
-import StudentStore from "@/state/StudentStore";
+import { useState } from "react";
+import SelectedStudentStore from "@/state/SelectedStudentStore";
+import { axiosPrivate } from "@/api/axios";
 
 type TStudentTables = {
   students: TStudent[] | null;
@@ -16,7 +18,13 @@ type TStudentTables = {
 };
 
 const StudentsTables = ({ students, loading }: TStudentTables) => {
-  const setStudent = StudentStore((state) => state.setStudent);
+  const setSelectedStudent = SelectedStudentStore(
+    (state) => state.setSeletedStudent
+  );
+  const setUpdate = SelectedStudentStore((state) => state.setUpdate);
+  const setIsLoading = SelectedStudentStore((state) => state.setIsLoading);
+  const [selected, setSelected] = useState<number | undefined>();
+
   if (loading) {
     return (
       <div className="w-full flex justify-center p-4">
@@ -34,9 +42,23 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
     );
   }
 
+  const handleSelect = async (id: string, key: number) => {
+    setUpdate(false);
+    setSelected(key);
+    try {
+      setIsLoading(true);
+      const res = await axiosPrivate.get(`/student/${id}`);
+      setSelectedStudent(res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className=" w-full h-screen overflow-y-auto ">
-      <Table className="w-max ">
+      <Table className="w-max">
         <TableHeader>
           <TableRow className="text-xs">
             <TableHead>Student Number</TableHead>
@@ -49,8 +71,10 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
             students.map((student, i) => (
               <TableRow
                 key={i}
-                className="text-xs cursor-pointer"
-                onClick={() => setStudent(student)}
+                className={`text-xs cursor-pointer hover:bg-yellow-500 ${
+                  i === selected && "bg-yellow-500 text-white"
+                }`}
+                onClick={() => handleSelect(student.id, i)}
               >
                 <TableCell className="">{student.student_number}</TableCell>
                 <TableCell className="">{`${student.last_name}, ${student.first_name} ${student.middle_name}`}</TableCell>
