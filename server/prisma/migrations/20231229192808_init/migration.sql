@@ -7,8 +7,9 @@ CREATE TABLE `Student` (
     `last_name` VARCHAR(191) NOT NULL,
     `age` INTEGER NOT NULL,
     `birth_date` VARCHAR(191) NOT NULL,
+    `gender` ENUM('MALE', 'FEMALE', 'GAY', 'LESBIAN', 'UNKNOWN') NOT NULL,
+    `religion` VARCHAR(191) NOT NULL,
     `contact_number` VARCHAR(191) NOT NULL,
-    `address` TEXT NOT NULL,
     `refreshToken` TEXT NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
@@ -20,9 +21,23 @@ CREATE TABLE `Student` (
     `school_section` VARCHAR(191) NULL,
     `role` ENUM('STUDENT', 'ADMIN', 'PROFESSOR') NOT NULL DEFAULT 'STUDENT',
     `type` ENUM('REGULAR', 'IRREGULAR') NOT NULL DEFAULT 'REGULAR',
+    `addressId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Student_student_number_key`(`student_number`),
     UNIQUE INDEX `Student_email_key`(`email`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Address` (
+    `id` VARCHAR(191) NOT NULL,
+    `Street_name` VARCHAR(191) NOT NULL,
+    `baranggay` VARCHAR(191) NOT NULL,
+    `city` VARCHAR(191) NOT NULL,
+    `region` VARCHAR(191) NOT NULL,
+    `province` VARCHAR(191) NOT NULL,
+    `postal_code` VARCHAR(191) NOT NULL,
+
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -77,6 +92,9 @@ CREATE TABLE `admin` (
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Student` ADD CONSTRAINT `Student_addressId_fkey` FOREIGN KEY (`addressId`) REFERENCES `Address`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Profile_Image` ADD CONSTRAINT `Profile_Image_student_id_fkey` FOREIGN KEY (`student_id`) REFERENCES `Student`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -11,6 +11,7 @@ import { LuLoader2, LuUserX2 } from "react-icons/lu";
 import { useState } from "react";
 import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { axiosPrivate } from "@/api/axios";
+import AddNewStudentModal from "./modals/AddNewStudentModal";
 
 type TStudentTables = {
   students: TStudent[] | null;
@@ -24,7 +25,7 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
   const setUpdate = SelectedStudentStore((state) => state.setUpdate);
   const setIsLoading = SelectedStudentStore((state) => state.setIsLoading);
   const [selected, setSelected] = useState<number | undefined>();
-
+  const [addNewStudent, setAddNewStudent] = useState(false);
   if (loading) {
     return (
       <div className="w-full flex justify-center p-4">
@@ -37,7 +38,9 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
     return (
       <div className="w-full flex flex-col gap-4 items-center p-4">
         <LuUserX2 size="10rem" className="text-stone-300" />
-        <h1 className="uppercase text-2xl text-stone-300">No student found</h1>
+        <h1 className="uppercase text-2xl text-stone-300">
+          Student number found
+        </h1>
       </div>
     );
   }
@@ -57,7 +60,7 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
   };
 
   return (
-    <div className=" w-full h-screen overflow-y-auto ">
+    <div className=" w-full h-screen overflow-y-auto  flex flex-col justify-between">
       <Table className="w-max">
         <TableHeader>
           <TableRow className="text-xs">
@@ -83,6 +86,16 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
             ))}
         </TableBody>
       </Table>
+      <span className="w-full flex items-center justify-end p-2">
+        <button
+          type="button"
+          onClick={() => setAddNewStudent(true)}
+          className="px-3 py-1.5 bg-emerald-500 text-white rounded-md text-xs shadow-xl hover:scale-105 duration-200 transition-all"
+        >
+          Add New Student
+        </button>
+      </span>
+      {addNewStudent && <AddNewStudentModal setShow={setAddNewStudent} />}
     </div>
   );
 };

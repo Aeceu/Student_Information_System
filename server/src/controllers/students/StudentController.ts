@@ -50,6 +50,8 @@ export const getAllStudentsByStudentNumber = async (
         birth_date: true,
         address: true,
         contact_number: true,
+        gender: true,
+        religion: true,
         email: true,
         role: true,
         type: true,
@@ -108,6 +110,8 @@ export const updateStudent = async (req: Request, res: Response) => {
         age: data.age,
         contact_number: data.contact_number,
         birth_date: data.birth_date,
+        gender: data.gender,
+        religion: data.religion,
         address: {
           update: {
             Street_name: data.address.Street_name,

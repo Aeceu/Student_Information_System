@@ -15,6 +15,8 @@ model Student {
   last_name         String
   age               Int
   birth_date        String
+  gender            GENDER          
+  religion          String
   contact_number    String
   address           Address            @relation(fields: [addressId], references: [id])
   refreshToken      String?            @db.Text()
@@ -32,6 +34,14 @@ model Student {
   type              TYPE               @default(REGULAR)
   subjects_enrolled SubjectsEnrolled[]
   addressId         String
+}
+
+enum GENDER {
+  MALE
+  FEMALE
+  GAY
+  LESBIAN
+  UNKNOWN
 }
 
 enum TYPE {

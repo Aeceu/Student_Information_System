@@ -31,6 +31,8 @@ export type TAdminUpdateStudentInfo = {
     age: number;
     birth_date: string;
     contact_number: string;
+    gender: "MALE" | "FEMALE" | "GAY" | "LESBIAN" | "UNKNOWN";
+    religion: string;
     address: {
       Street_name: string;
       baranggay: string;

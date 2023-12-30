@@ -99,6 +99,8 @@ export const signup = async (req: Request, res: Response) => {
         last_name: data.last_name,
         age: Number(data.age),
         birth_date: data.birth_date,
+        gender: data.gender,
+        religion: data.religion,
         address: {
           create: {
             Street_name: data.address.Street_name,

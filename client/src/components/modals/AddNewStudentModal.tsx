@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import axios from "@/api/axios";
 import {
   Select,
@@ -10,16 +11,24 @@ import {
 } from "@/components/ui/select";
 
 import { AxiosError, isAxiosError } from "axios";
-import { ChangeEvent, FormEvent, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from "react";
 import {
   LuArrowLeftToLine,
   LuArrowRightToLine,
   LuLoader2,
 } from "react-icons/lu";
-import { Link, useNavigate } from "react-router-dom";
 
-const SignUpForm = () => {
-  const navigate = useNavigate();
+type TAddNewStudentModalProps = {
+  setShow: Dispatch<SetStateAction<boolean>>;
+};
+
+const AddNewStudentModal = ({ setShow }: TAddNewStudentModalProps) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     student_number: "",
@@ -58,7 +67,7 @@ const SignUpForm = () => {
       setLoading(true);
       const res = await axios.post("/student/signup", { data });
       alert(res.data);
-      navigate("/login");
+      setShow(false);
     } catch (error) {
       console.log(error);
       if (isAxiosError(error)) {
@@ -96,6 +105,7 @@ const SignUpForm = () => {
         school_section: "",
         type: "",
       });
+      setShow(false);
     }
   };
 
@@ -127,27 +137,23 @@ const SignUpForm = () => {
       type: "REGULAR",
     });
   };
-
   return (
-    <div className="text-black relative w-full min-h-screen flex   justify-center bg-[url(./bodybg.jpg)] bg-cover bg-center p-4">
-      <img
-        src="./uni.jpg"
-        alt="uni"
-        className="absolute top-0 left-0 w-full h-full opacity-10"
-      />
-
-      <form
+    <div className="z-50 absolute top-0 left-0 w-full min-h-screen bg-black/70 flex items-center justify-center p-8">
+      <motion.form
+        initial={{ scale: 0 }}
+        animate={{ scale: 1, transition: { duration: 0.3 } }}
         id="student_form"
         onSubmit={handleSubmit}
-        className="w-full h-full p-4 z-10 bg-white rounded-sm shadow-xl border-2 border-red-500"
+        className="w-full p-4 z-10 bg-white rounded-sm shadow-xl border-2 border-red-500"
       >
-        <Link
-          to="/login"
+        <button
+          type="button"
+          onClick={() => setShow(false)}
           className="flex items-center gap-1 text-xs px-2 hover:text-red-500 w-max"
         >
           <LuArrowLeftToLine size="1rem" />
           Go back
-        </Link>
+        </button>
 
         <div className="w-full flex items-center gap-2 p-2">
           <p className="w-[250px] text-lg text-red-500 font-bold">
@@ -227,7 +233,9 @@ const SignUpForm = () => {
             <p className="text-xs text-slate-950">age:</p>
             <Select onValueChange={(e) => setData({ ...data, age: Number(e) })}>
               <SelectTrigger className="h-[30px] w-[180px] text-xs border border-red-500">
-                <SelectValue placeholder="pick your age" />
+                <SelectValue
+                  placeholder={data.age > 0 ? data.age : "pick your age"}
+                />
               </SelectTrigger>
               <SelectContent className="border border-red-500">
                 <SelectGroup>
@@ -527,13 +535,13 @@ const SignUpForm = () => {
             {loading ? (
               <LuLoader2 size="1.3rem" className="animate-spin" />
             ) : (
-              "Sign up"
+              "Add"
             )}
             <LuArrowRightToLine size="1.3rem" />
           </button>
         </span>
-      </form>
+      </motion.form>
     </div>
   );
 };
-export default SignUpForm;
+export default AddNewStudentModal;

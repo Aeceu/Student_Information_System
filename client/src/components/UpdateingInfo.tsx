@@ -1,7 +1,15 @@
 import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { ChangeEvent, useEffect, useState } from "react";
 import UpdateStudentButton from "./UpdateStudentButton";
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 const UpdatingInfo = () => {
   const student = SelectedStudentStore((state) => state.seletedStudent);
   const [updateStudent, setUpdateStudent] = useState({
@@ -10,6 +18,8 @@ const UpdatingInfo = () => {
     last_name: "",
     age: 0,
     birth_date: "",
+    gender: "",
+    religion: "",
     address: {
       baranggay: "",
       city: "",
@@ -38,6 +48,8 @@ const UpdatingInfo = () => {
         last_name: student?.last_name,
         age: student.age,
         birth_date: student.birth_date,
+        gender: student.gender,
+        religion: student.religion,
         address: {
           Street_name: student.address.Street_name,
           baranggay: student.address.baranggay,
@@ -59,6 +71,7 @@ const UpdatingInfo = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUpdateStudent({ ...updateStudent, [e.target.id]: e.target.value });
+    e.target.style.backgroundColor = "rgb(252,165,165)";
   };
 
   return (
@@ -76,7 +89,7 @@ const UpdatingInfo = () => {
               id="first_name"
               onChange={(e) => handleChange(e)}
               value={updateStudent.first_name}
-              className="  outline-none text-clamp border-b border-red-300"
+              className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
             />
           </span>
           <span className="flex flex-col justify-center gap-1">
@@ -89,7 +102,7 @@ const UpdatingInfo = () => {
               value={
                 updateStudent.middle_name ? updateStudent.middle_name : "N/A"
               }
-              className="  outline-none text-clamp border-b border-red-300"
+              className="px-3 py-1.5 outline-none text-xs border-b border-red-300"
             />
           </span>
           <span className="flex flex-col justify-center gap-1">
@@ -100,7 +113,7 @@ const UpdatingInfo = () => {
               id="last_name"
               onChange={(e) => handleChange(e)}
               value={updateStudent.last_name}
-              className="  outline-none text-clamp border-b border-red-300"
+              className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
             />
           </span>
           <span className="flex flex-col justify-center gap-1">
@@ -111,30 +124,163 @@ const UpdatingInfo = () => {
               id="student_number"
               onChange={(e) => handleChange(e)}
               value={updateStudent.student_number}
-              className="  outline-none text-clamp border-b border-red-300"
+              className="px-3 py-1.5 outline-none text-xs border-b border-red-300"
             />
           </span>
           <span className="flex flex-col justify-center gap-1">
             <p className="text-xs text-red-500 font-bold">Student type:</p>
-            <input
-              type="text"
-              placeholder="type of student"
-              id="type"
-              onChange={(e) => handleChange(e)}
+            <Select
               value={updateStudent.type}
-              className="  outline-none text-clamp border-b border-red-300"
-            />
+              onValueChange={(e) => {
+                setUpdateStudent({ ...updateStudent, type: e });
+              }}
+            >
+              <SelectTrigger className="h-[30px] w-full text-xs border-b border-red-300 rounded-none">
+                <SelectValue placeholder="pick your  student type" />
+              </SelectTrigger>
+              <SelectContent className="border border-red-500">
+                <SelectGroup>
+                  <SelectLabel className="text-xs text-red-500">
+                    Type
+                  </SelectLabel>
+                  <SelectItem className="text-xs" value="REGULAR">
+                    REGULAR
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="IRREGULAR">
+                    IRREGULAR
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </span>
           <span className="flex flex-col justify-center gap-1">
             <p className="text-xs text-red-500 font-bold">Age</p>
-            <input
-              type="text"
-              placeholder="age"
-              id="age"
-              onChange={(e) => handleChange(e)}
-              value={updateStudent.age}
-              className="  outline-none text-clamp border-b border-red-300"
-            />
+            <Select
+              value={String(updateStudent.age)}
+              onValueChange={(e) =>
+                setUpdateStudent({ ...updateStudent, age: Number(e) })
+              }
+            >
+              <SelectTrigger className="h-[30px] w-full text-xs border-b border-red-300 rounded-none">
+                <SelectValue placeholder="pick your age" />
+              </SelectTrigger>
+              <SelectContent className="border border-red-500">
+                <SelectGroup>
+                  <SelectLabel className="text-xs text-red-500">
+                    Age
+                  </SelectLabel>
+                  <SelectItem className="text-xs" value="18">
+                    18
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="19">
+                    19
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="20">
+                    20
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="21">
+                    21
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="22">
+                    22
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="23">
+                    23
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="24">
+                    24
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="25">
+                    25
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="26">
+                    26
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="27">
+                    27
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="28">
+                    28
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="29">
+                    29
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="30">
+                    30
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </span>
+          <span className="flex flex-col justify-center gap-1">
+            <p className="text-xs text-red-500 font-bold">Gender:</p>
+            <Select
+              value={updateStudent.gender}
+              onValueChange={(e) =>
+                setUpdateStudent({ ...updateStudent, gender: e })
+              }
+            >
+              <SelectTrigger className="h-[30px] w-full text-xs border-b border-red-300 rounded-none">
+                <SelectValue placeholder="pick your gender" />
+              </SelectTrigger>
+              <SelectContent className="border border-red-500">
+                <SelectGroup>
+                  <SelectLabel className="text-xs text-red-500">
+                    Type
+                  </SelectLabel>
+                  <SelectItem className="text-xs" value="MALE">
+                    MALE
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="FEMALE">
+                    FEMALE
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="GAY">
+                    GAY
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="LESBIAN">
+                    LESBIAN
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="UNKNOWN">
+                    Prefer not to say
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </span>
+          <span className="flex flex-col justify-center gap-1">
+            <p className="text-xs text-red-500 font-bold">Religion:</p>
+            <Select
+              value={updateStudent.religion}
+              onValueChange={(e) =>
+                setUpdateStudent({ ...updateStudent, religion: e })
+              }
+            >
+              <SelectTrigger className="h-[30px] w-full text-xs border-b border-red-300 rounded-none">
+                <SelectValue placeholder="pick your religion" />
+              </SelectTrigger>
+              <SelectContent className="border border-red-500">
+                <SelectGroup>
+                  <SelectLabel className="text-xs text-red-500">
+                    Type
+                  </SelectLabel>
+                  <SelectItem className="text-xs" value="Catholic">
+                    Catholic
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="Iglesia ni Cristo">
+                    Iglesia ni Cristo
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="Born again">
+                    Born again
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="Muslim">
+                    Muslim
+                  </SelectItem>
+                  <SelectItem className="text-xs" value="Mormon">
+                    Mormon
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </span>
           <span className="flex flex-col justify-center gap-1">
             <p className="text-xs text-red-500 font-bold">Birthdate:</p>
@@ -144,10 +290,10 @@ const UpdatingInfo = () => {
               id="birth_date"
               onChange={(e) => handleChange(e)}
               value={updateStudent.birth_date}
-              className="  outline-none text-clamp border-b border-red-300"
+              className="px-2 py-1  outline-none text-xs border-b border-red-300"
             />
           </span>
-          <span className="col-span-2 flex flex-col justify-center gap-1">
+          <span className="flex flex-col justify-center gap-1">
             <p className="text-xs text-red-500 font-bold">Contact number:</p>
             <input
               type="text"
@@ -155,102 +301,7 @@ const UpdatingInfo = () => {
               id="contact_number"
               onChange={(e) => handleChange(e)}
               value={updateStudent.contact_number}
-              className="  outline-none text-clamp border-b border-red-300"
-            />
-          </span>
-          <span className="col-span-3 w-full grid grid-cols-3  gap-2">
-            <p className="text-xs text-red-500 font-bold col-span-3">
-              Address:
-            </p>
-            <input
-              type="text"
-              placeholder="street/block/lot/village"
-              onChange={(e) =>
-                setUpdateStudent({
-                  ...updateStudent,
-                  address: {
-                    ...updateStudent.address,
-                    Street_name: e.target.value,
-                  },
-                })
-              }
-              value={updateStudent.address.Street_name}
-              className="  outline-none text-clamp border-b border-red-300"
-            />
-            <input
-              type="text"
-              placeholder="baranggay"
-              onChange={(e) =>
-                setUpdateStudent({
-                  ...updateStudent,
-                  address: {
-                    ...updateStudent.address,
-                    baranggay: e.target.value,
-                  },
-                })
-              }
-              value={updateStudent.address.baranggay}
-              className="  outline-none text-clamp border-b border-red-300"
-            />
-            <input
-              type="text"
-              placeholder="city"
-              onChange={(e) =>
-                setUpdateStudent({
-                  ...updateStudent,
-                  address: {
-                    ...updateStudent.address,
-                    city: e.target.value,
-                  },
-                })
-              }
-              value={updateStudent.address.city}
-              className="  outline-none text-clamp border-b border-red-300"
-            />
-            <input
-              type="text"
-              placeholder="province"
-              onChange={(e) =>
-                setUpdateStudent({
-                  ...updateStudent,
-                  address: {
-                    ...updateStudent.address,
-                    province: e.target.value,
-                  },
-                })
-              }
-              value={updateStudent.address.province}
-              className="  outline-none text-clamp border-b border-red-300"
-            />
-            <input
-              type="text"
-              placeholder="region"
-              onChange={(e) =>
-                setUpdateStudent({
-                  ...updateStudent,
-                  address: {
-                    ...updateStudent.address,
-                    region: e.target.value,
-                  },
-                })
-              }
-              value={updateStudent.address.region}
-              className="  outline-none text-clamp border-b border-red-300"
-            />
-            <input
-              type="text"
-              placeholder="postal code"
-              onChange={(e) =>
-                setUpdateStudent({
-                  ...updateStudent,
-                  address: {
-                    ...updateStudent.address,
-                    postal_code: e.target.value,
-                  },
-                })
-              }
-              value={updateStudent.address.postal_code}
-              className="  outline-none text-clamp border-b border-red-300"
+              className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
             />
           </span>
         </div>
@@ -265,6 +316,99 @@ const UpdatingInfo = () => {
         </div>
       </div>
       <div className="w-full grid grid-cols-3 gap-2 px-4">
+        <span className="col-span-3 w-full grid grid-cols-3  gap-2">
+          <p className="text-xs text-red-500 font-bold col-span-3">Address:</p>
+          <input
+            type="text"
+            placeholder="street/block/lot/village"
+            onChange={(e) =>
+              setUpdateStudent({
+                ...updateStudent,
+                address: {
+                  ...updateStudent.address,
+                  Street_name: e.target.value,
+                },
+              })
+            }
+            value={updateStudent.address.Street_name}
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
+          />
+          <input
+            type="text"
+            placeholder="baranggay"
+            onChange={(e) =>
+              setUpdateStudent({
+                ...updateStudent,
+                address: {
+                  ...updateStudent.address,
+                  baranggay: e.target.value,
+                },
+              })
+            }
+            value={updateStudent.address.baranggay}
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
+          />
+          <input
+            type="text"
+            placeholder="city"
+            onChange={(e) =>
+              setUpdateStudent({
+                ...updateStudent,
+                address: {
+                  ...updateStudent.address,
+                  city: e.target.value,
+                },
+              })
+            }
+            value={updateStudent.address.city}
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
+          />
+          <input
+            type="text"
+            placeholder="province"
+            onChange={(e) =>
+              setUpdateStudent({
+                ...updateStudent,
+                address: {
+                  ...updateStudent.address,
+                  province: e.target.value,
+                },
+              })
+            }
+            value={updateStudent.address.province}
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
+          />
+          <input
+            type="text"
+            placeholder="region"
+            onChange={(e) =>
+              setUpdateStudent({
+                ...updateStudent,
+                address: {
+                  ...updateStudent.address,
+                  region: e.target.value,
+                },
+              })
+            }
+            value={updateStudent.address.region}
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
+          />
+          <input
+            type="text"
+            placeholder="postal code"
+            onChange={(e) =>
+              setUpdateStudent({
+                ...updateStudent,
+                address: {
+                  ...updateStudent.address,
+                  postal_code: e.target.value,
+                },
+              })
+            }
+            value={updateStudent.address.postal_code}
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
+          />
+        </span>
         <span className="flex flex-col justify-center gap-1">
           <p className="text-xs text-red-500 font-bold">Email</p>
           <input
@@ -273,7 +417,7 @@ const UpdatingInfo = () => {
             id="email"
             onChange={(e) => handleChange(e)}
             value={updateStudent.email}
-            className="  outline-none text-clamp border-b border-red-300"
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
           />
         </span>
         <span className="flex flex-col justify-center gap-1">
@@ -284,7 +428,7 @@ const UpdatingInfo = () => {
             id="school_year"
             onChange={(e) => handleChange(e)}
             value={updateStudent.school_year}
-            className="  outline-none text-clamp border-b border-red-300"
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
           />
         </span>
         <span className="flex flex-col justify-center gap-1">
@@ -295,7 +439,7 @@ const UpdatingInfo = () => {
             id="school_section"
             onChange={(e) => handleChange(e)}
             value={updateStudent.school_section}
-            className="  outline-none text-clamp border-b border-red-300"
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
           />
         </span>
         <span className="flex flex-col justify-center gap-1">
@@ -306,7 +450,7 @@ const UpdatingInfo = () => {
             id="school_college"
             onChange={(e) => handleChange(e)}
             value={updateStudent.school_college}
-            className="  outline-none text-clamp border-b border-red-300"
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
           />
         </span>
         <span className="col-span-2 flex flex-col justify-center gap-1">
@@ -317,7 +461,7 @@ const UpdatingInfo = () => {
             id="school_course"
             onChange={(e) => handleChange(e)}
             value={updateStudent.school_course}
-            className="  outline-none text-clamp border-b border-red-300"
+            className="px-3 py-1.5  outline-none text-xs border-b border-red-300"
           />
         </span>
       </div>

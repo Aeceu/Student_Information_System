@@ -13,6 +13,8 @@ export type TStudentSignUp = {
     last_name: string;
     age: number;
     birth_date: string;
+    gender: "MALE" | "FEMALE" | "GAY" | "LESBIAN" | "UNKNOWN";
+    religion: string;
     contact_number: string;
     address: {
       Street_name: string;
@@ -42,6 +44,8 @@ export type TStudent = {
   age: number;
   birth_date: string;
   contact_number: string;
+  gender: "MALE" | "FEMALE" | "GAY" | "LESBIAN" | "UNKNOWN";
+  religion: string;
   address: {
     Street_name: string;
     baranggay: string;
@@ -79,6 +83,8 @@ export type TUpdateStudent = {
     age: number;
     birth_date: string;
     contact_number: string;
+    gender: "MALE" | "FEMALE" | "GAY" | "LESBIAN" | "UNKNOWN";
+    religion: string;
     address: {
       Street_name: string;
       baranggay: string;
