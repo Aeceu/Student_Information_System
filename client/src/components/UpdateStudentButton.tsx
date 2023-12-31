@@ -1,7 +1,7 @@
-import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { TUpdateStudent } from "@/student.type";
 import { useState } from "react";
 import UpdateStudentModal from "./modals/UpdateStudentModal";
+import { Link } from "react-router-dom";
 
 type TUpdateStudentButtonProps = {
   updateStudent: TUpdateStudent;
@@ -9,8 +9,6 @@ type TUpdateStudentButtonProps = {
 
 const UpdateStudentButton = ({ updateStudent }: TUpdateStudentButtonProps) => {
   const [show, setShow] = useState(false);
-  const setUpdate = SelectedStudentStore((state) => state.setUpdate);
-  const update = SelectedStudentStore((state) => state.update);
 
   return (
     <span className="flex items-center gap-2 text-sm">
@@ -21,13 +19,12 @@ const UpdateStudentButton = ({ updateStudent }: TUpdateStudentButtonProps) => {
       >
         Submit
       </button>
-      <button
-        type="button"
+      <Link
+        to="/admin/dashboard"
         className="w-full py-1 flex items-center justify-center rounded-sm bg-red-500 text-white shadow-xl hover:scale-105 duration-200 transition-all"
-        onClick={() => setUpdate(!update)}
       >
         Cancel
-      </button>
+      </Link>
       {show && (
         <UpdateStudentModal setShow={setShow} updateStudent={updateStudent} />
       )}

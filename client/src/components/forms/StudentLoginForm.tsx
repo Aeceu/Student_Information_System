@@ -5,6 +5,7 @@ import { useState } from "react";
 import { LuLoader2, LuEyeOff, LuEye } from "react-icons/lu";
 import { FaArrowRightLong, FaUser, FaLock } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const StudentLoginForm = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const StudentLoginForm = () => {
         }
       );
       console.log(res.data);
-      alert(res.data.message);
+      toast.success(res.data.message);
       setStudent(res.data.student);
       setToken(res.data.accessToken);
       navigate("/");
@@ -43,6 +44,7 @@ const StudentLoginForm = () => {
         const axiosError = error as AxiosError;
         if (typeof axiosError.response?.data === "string") {
           setError(axiosError.response?.data);
+          toast.error(axiosError.response?.data);
         }
       }
     } finally {

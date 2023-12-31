@@ -1,25 +1,22 @@
-import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { useState } from "react";
 import DeleteModal from "./modals/DeleteModal";
+import { Link } from "react-router-dom";
 
 type TDeleteStudentProps = {
   id: string;
 };
 
 const DeleteStudentButton = ({ id }: TDeleteStudentProps) => {
-  const setUpdate = SelectedStudentStore((state) => state.setUpdate);
-  const update = SelectedStudentStore((state) => state.update);
   const [show, setShow] = useState(false);
 
   return (
     <span className="flex items-center gap-2 text-sm">
-      <button
-        onClick={() => setUpdate(!update)}
-        type="button"
+      <Link
+        to="update"
         className="px-4 py-1 rounded-sm bg-green-500 text-white shadow-xl hover:scale-105 duration-200 transition-all"
       >
         update
-      </button>
+      </Link>
       <button
         onClick={() => setShow(true)}
         type="button"

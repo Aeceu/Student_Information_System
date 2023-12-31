@@ -23,6 +23,7 @@ import {
   LuArrowRightToLine,
   LuLoader2,
 } from "react-icons/lu";
+import toast from "react-hot-toast";
 
 type TAddNewStudentModalProps = {
   setShow: Dispatch<SetStateAction<boolean>>;
@@ -66,7 +67,7 @@ const AddNewStudentModal = ({ setShow }: TAddNewStudentModalProps) => {
     try {
       setLoading(true);
       const res = await axios.post("/student/signup", { data });
-      alert(res.data);
+      toast.success(res.data);
       setShow(false);
     } catch (error) {
       console.log(error);
@@ -74,7 +75,7 @@ const AddNewStudentModal = ({ setShow }: TAddNewStudentModalProps) => {
         const axiosError = error as AxiosError;
         if (typeof axiosError.response?.data === "string") {
           console.log(axiosError.response.data);
-          alert(axiosError.response.data);
+          toast.error(axiosError.response.data);
         }
       }
     } finally {

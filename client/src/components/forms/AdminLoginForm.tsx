@@ -2,6 +2,7 @@ import axios from "@/api/axios";
 import AdminStore from "@/state/AdminStore";
 import { AxiosError, isAxiosError } from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { LuLoader2 } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 
@@ -33,12 +34,13 @@ const AdminLoginForm = () => {
       console.log(res.data);
       setAdmin(res.data.admin);
       setToken(res.data.accessToken);
-      navigate("/dashboard");
+      navigate("/admin");
     } catch (error) {
       if (isAxiosError(error)) {
         const axiosError = error as AxiosError;
         if (typeof axiosError.response?.data === "string") {
           console.log(axiosError.response?.data);
+          toast.error(axiosError.response.data);
         }
       }
     } finally {

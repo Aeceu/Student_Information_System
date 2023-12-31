@@ -76,7 +76,7 @@ const UpdatingInfo = () => {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="w-full p-4 flex items-center justify-between  gap-4">
+      <div className="w-full  p-4 flex items-center justify-between  gap-4">
         <div className="w-full h-full grid  grid-cols-3 gap-2">
           <span className="col-span-3 flex items-center justify-between ">
             <h1 className=" text-2xl  text-red-500 ">Student's Profile</h1>
@@ -133,6 +133,7 @@ const UpdatingInfo = () => {
               value={updateStudent.type}
               onValueChange={(e) => {
                 setUpdateStudent({ ...updateStudent, type: e });
+                ``;
               }}
             >
               <SelectTrigger className="h-[30px] w-full text-xs border-b border-red-300 rounded-none">
@@ -315,7 +316,7 @@ const UpdatingInfo = () => {
           <UpdateStudentButton updateStudent={updateStudent} />
         </div>
       </div>
-      <div className="w-full grid grid-cols-3 gap-2 px-4">
+      <div className="w-full  grid grid-cols-3 gap-2 px-4">
         <span className="col-span-3 w-full grid grid-cols-3  gap-2">
           <p className="text-xs text-red-500 font-bold col-span-3">Address:</p>
           <input

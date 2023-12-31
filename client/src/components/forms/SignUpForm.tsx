@@ -11,6 +11,7 @@ import {
 
 import { AxiosError, isAxiosError } from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
+import toast from "react-hot-toast";
 import {
   LuArrowLeftToLine,
   LuArrowRightToLine,
@@ -57,7 +58,7 @@ const SignUpForm = () => {
     try {
       setLoading(true);
       const res = await axios.post("/student/signup", { data });
-      alert(res.data);
+      toast.success(res.data);
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -65,7 +66,7 @@ const SignUpForm = () => {
         const axiosError = error as AxiosError;
         if (typeof axiosError.response?.data === "string") {
           console.log(axiosError.response.data);
-          alert(axiosError.response.data);
+          toast.error(axiosError.response.data);
         }
       }
     } finally {

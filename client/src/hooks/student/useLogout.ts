@@ -1,5 +1,6 @@
 import axios from "@/api/axios";
 import StudentStore from "@/state/StudentStore";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const useStudentLogout = () => {
@@ -16,7 +17,7 @@ export const useStudentLogout = () => {
       });
 
       console.log(res.data, res.status);
-      alert(res.data);
+      toast.success(res.data);
       navigate("/login");
     } catch (error) {
       console.log(error);

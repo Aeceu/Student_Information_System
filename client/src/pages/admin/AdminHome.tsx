@@ -1,12 +1,12 @@
 import { useAdminLogout } from "@/hooks/admin/useLogout";
 import { useStudentLogout } from "@/hooks/student/useLogout";
 
-const Home = () => {
+const AdminHome = () => {
   const student_logout = useStudentLogout();
   const admin_logout = useAdminLogout();
   return (
-    <div>
-      Home
+    <div className="w-full h-[calc(100vh-50px)] flex flex-col items-center justify-center gap-4">
+      AdminHome
       <button
         onClick={student_logout}
         className="px-8 py-1 bg-slate-950 text-white  cursor-pointer"
@@ -22,4 +22,4 @@ const Home = () => {
     </div>
   );
 };
-export default Home;
+export default AdminHome;

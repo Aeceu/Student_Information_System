@@ -1,10 +1,11 @@
 import SelectedStudentStore from "@/state/SelectedStudentStore";
 import DeleteStudentButton from "./DeleteStudentButton";
+import { Link } from "react-router-dom";
 
 const DefaultInfo = () => {
   const seletedStudent = SelectedStudentStore((state) => state.seletedStudent);
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col justify-between w-full h-full">
       <div className="w-full p-4 flex items-center justify-between  gap-4">
         <div className="w-full h-full grid  grid-cols-3 gap-2">
           <span className="col-span-3 flex items-center justify-between ">
@@ -82,7 +83,7 @@ const DefaultInfo = () => {
           {seletedStudent && <DeleteStudentButton id={seletedStudent.id} />}
         </div>
       </div>
-      <div className="w-full grid grid-cols-3 gap-2 px-4">
+      <div className="w-full h-full grid grid-cols-3 gap-2 px-4">
         <span className="col-span-3 flex flex-col justify-center gap-1">
           <p className="text-xs text-red-500 font-bold">Address:</p>
           <h1 className="px-3 py-1.5 text-clamp border-b border-red-300">{`${seletedStudent?.address.Street_name} ${seletedStudent?.address.baranggay} ${seletedStudent?.address.city} ${seletedStudent?.address.province} ${seletedStudent?.address.region} ${seletedStudent?.address.postal_code}`}</h1>
@@ -117,6 +118,20 @@ const DefaultInfo = () => {
             {seletedStudent?.school_course}
           </h1>
         </span>
+      </div>
+      <div className="flex items-center gap-4 p-4 w-full">
+        <Link
+          to={`student/subjects/${123}`}
+          className="px-4 py-2 bg-blue-500 text-white text-xs rounded-md shadow-xl hover:scale-105 duration-200 transition-all"
+        >
+          View Subjects
+        </Link>
+        <Link
+          to={`student/grades/${123}`}
+          className="px-4 py-2 bg-emerald-500 text-white text-xs rounded-md shadow-xl hover:scale-105 duration-200 transition-all"
+        >
+          View Grades
+        </Link>
       </div>
     </div>
   );

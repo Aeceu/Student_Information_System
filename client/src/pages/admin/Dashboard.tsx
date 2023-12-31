@@ -1,14 +1,16 @@
-import DashboardSideBar from "@/components/DashboardSideBar";
-import StudentProfileTab from "@/components/StudentProfileTab";
+import DefaultInfo from "@/components/DefaultInfo";
+import UpdatingInfo from "@/components/UpdateingInfo";
+import DashboardLayout from "@/components/layouts/DashboardLayout";
+import { Routes, Route } from "react-router-dom";
 
 const Dashboard = () => {
   return (
-    <div className="w-full h-[calc(100vh-50px)] flex items-center justify-center">
-      <DashboardSideBar />
-      <div className=" w-3/4 h-full ">
-        <StudentProfileTab />
-      </div>
-    </div>
+    <Routes>
+      <Route path="/admin/dashboard" element={<DashboardLayout />}>
+        <Route index element={<DefaultInfo />} />
+        <Route path="update" element={<UpdatingInfo />} />
+      </Route>
+    </Routes>
   );
 };
 export default Dashboard;

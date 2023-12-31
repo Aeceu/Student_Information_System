@@ -17,7 +17,7 @@ const AdminPersistLogin = () => {
         await refresh();
       } catch (err) {
         console.log(err);
-        navigate("/");
+        navigate("/login");
       } finally {
         setIsLoading(false);
       }

@@ -1,6 +1,7 @@
 import { axiosPrivate } from "@/api/axios";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
+import toast from "react-hot-toast";
 import { LuLoader2 } from "react-icons/lu";
 
 type TDeleteModalProps = {
@@ -19,7 +20,7 @@ const DeleteModal = ({ id, setShow }: TDeleteModalProps) => {
       const res = await axiosPrivate.delete(`/admin/student/${id}`);
       console.log(res.data);
 
-      alert(res.data);
+      toast.success(res.data);
     } catch (error) {
       console.log(error);
     } finally {

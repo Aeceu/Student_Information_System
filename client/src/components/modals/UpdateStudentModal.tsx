@@ -1,9 +1,10 @@
 import { axiosPrivate } from "@/api/axios";
-import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { TUpdateStudent } from "@/student.type";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
+import toast from "react-hot-toast";
 import { LuLoader2 } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 type TUpdateStudentModalProps = {
   updateStudent: TUpdateStudent;
@@ -15,20 +16,20 @@ const UpdateStudentModal = ({
   setShow,
 }: TUpdateStudentModalProps) => {
   const [loading, setLoading] = useState(false);
-  const setUpdate = SelectedStudentStore((state) => state.setUpdate);
+  const navigate = useNavigate();
   const handleUpdate = async () => {
     try {
       setLoading(true);
       const res = await axiosPrivate.patch("/admin/updateStudent", {
         data: updateStudent,
       });
-      alert(res.data);
+      toast.success(res.data);
     } catch (error) {
       console.log(error);
     } finally {
+      navigate("/admin/dashboard");
       setLoading(false);
       setShow(false);
-      setUpdate(false);
     }
   };
   return (

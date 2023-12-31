@@ -14,7 +14,7 @@ const AdminProtectedRoute = ({ allowedRoles }: TProps) => {
   return allowedRoles.includes(admin.role) ? (
     <Outlet />
   ) : admin || token ? (
-    <Navigate to="/" />
+    <Navigate to="/dashboard" />
   ) : (
     <Navigate to="/login" />
   );

@@ -1,5 +1,6 @@
 import axios from "@/api/axios";
 import AdminStore from "@/state/AdminStore";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const useAdminLogout = () => {
@@ -20,7 +21,7 @@ export const useAdminLogout = () => {
       });
 
       console.log(res.data, res.status);
-      alert(res.data);
+      toast.success(res.data);
       navigate("/login");
     } catch (error) {
       console.log(error);
