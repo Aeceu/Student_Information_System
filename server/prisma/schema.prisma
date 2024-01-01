@@ -15,10 +15,10 @@ model Student {
   last_name         String
   age               Int
   birth_date        String
-  gender            GENDER          
+  gender            GENDER
   religion          String
   contact_number    String
-  address           Address            @relation(fields: [addressId], references: [id])
+  address           Address?
   refreshToken      String?            @db.Text()
   email             String             @unique
   password          String
@@ -33,7 +33,51 @@ model Student {
   role              ROLE               @default(STUDENT)
   type              TYPE               @default(REGULAR)
   subjects_enrolled SubjectsEnrolled[]
-  addressId         String
+}
+
+model Address {
+  id          String  @id @default(uuid())
+  Street_name String
+  baranggay   String
+  city        String
+  region      String
+  province    String
+  postal_code String
+  student_id  String  @unique
+  Student     Student @relation(fields: [student_id], references: [id], onDelete: Cascade)
+}
+
+model Profile_Image {
+  id         String   @id @default(uuid())
+  secure_url String
+  image_url  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  student_id String   @unique
+  student    Student  @relation(fields: [student_id], references: [id], onDelete: Cascade)
+}
+
+model SubjectsEnrolled {
+  id           String   @id @default(uuid())
+  grade        Float?
+  code         String
+  subject_name String
+  units        Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+
+  Student   Student? @relation(fields: [studentId], references: [id],onDelete: Cascade)
+  studentId String?
+}
+
+model admin {
+  id           String   @id @default(uuid())
+  name         String
+  password     String
+  refreshToken String?  @db.Text()
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
 }
 
 enum GENDER {
@@ -53,58 +97,4 @@ enum ROLE {
   STUDENT
   ADMIN
   PROFESSOR
-}
-
-model Address {
-  id          String    @id @default(uuid())
-  Street_name String
-  baranggay   String
-  city        String
-  region      String
-  province String
-  postal_code String
-  Student     Student[]
-}
-
-model Profile_Image {
-  id         String   @id @default(uuid())
-  student_id String   @unique
-  secure_url String
-  image_url  String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
-  student    Student  @relation(fields: [student_id], references: [id])
-}
-
-model Subject {
-  id              String             @id @default(uuid())
-  code            String             @unique
-  subject_name    String
-  units           Int
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @default(now())
-  SubjectEnrolled SubjectsEnrolled[]
-}
-
-model SubjectsEnrolled {
-  id        String   @id @default(uuid())
-  studentID String
-  subjectID String
-  grade     Float?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  student   Student? @relation(fields: [studentID], references: [id])
-  subjects  Subject? @relation(fields: [subjectID], references: [id])
-
-  @@unique([studentID, subjectID])
-}
-
-model admin {
-  id           String   @id @default(uuid())
-  name         String
-  password     String
-  refreshToken String?  @db.Text()
-  role         String   @default("ADMIN")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now())
 }

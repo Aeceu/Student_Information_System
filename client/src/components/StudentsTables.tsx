@@ -36,11 +36,23 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
 
   if (students?.length === 0) {
     return (
-      <div className="w-full flex flex-col gap-4 items-center p-4">
-        <LuUserX2 size="10rem" className="text-stone-300" />
-        <h1 className="uppercase text-2xl text-stone-300">
-          Student number found
-        </h1>
+      <div className="w-full h-full flex flex-col gap-4 items-center justify-between p-4">
+        <span className="w-full h-full flex flex-col items-center justify-center">
+          <LuUserX2 size="10rem" className="text-stone-300" />
+          <h1 className="uppercase text-2xl text-stone-300">
+            Student number found
+          </h1>
+        </span>
+        <span className="w-full flex items-center justify-end p-2">
+          <button
+            type="button"
+            onClick={() => setAddNewStudent(true)}
+            className="px-3 py-1.5 bg-emerald-500 text-white rounded-md text-xs shadow-xl hover:scale-105 duration-200 transition-all"
+          >
+            Add New Student
+          </button>
+        </span>
+        {addNewStudent && <AddNewStudentModal setShow={setAddNewStudent} />}
       </div>
     );
   }

@@ -15,6 +15,7 @@ export const getStudent = async (req: Request, res: Response) => {
       },
       include: {
         address: true,
+        subjects_enrolled: true,
       },
     });
     if (student) {

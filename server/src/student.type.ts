@@ -53,7 +53,7 @@ export type TStudent = {
     province: string;
     region: string;
     postal_code: string;
-  };
+  } | null;
   refreshToken?: string | null;
   email: string;
   password?: string;
@@ -92,5 +92,14 @@ export type TUpdateStudent = {
       region: string;
       postal_code: string;
     };
+  };
+};
+
+export type TAddNewSubjectToStudent = {
+  data: {
+    code: string;
+    subject_name: string;
+    units: number;
+    grade?: number;
   };
 };
