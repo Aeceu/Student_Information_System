@@ -24,10 +24,13 @@ const UpdateStudentModal = ({
         data: updateStudent,
       });
       toast.success(res.data);
+      navigate("/admin/dashboard");
+      setLoading(false);
+      setShow(false);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     } finally {
-      navigate("/admin/dashboard");
       setLoading(false);
       setShow(false);
     }

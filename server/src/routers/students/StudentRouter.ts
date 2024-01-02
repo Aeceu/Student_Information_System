@@ -16,6 +16,8 @@ import {
   getStudentSubjects,
   addStudenSubject,
   deleteStudentSubject,
+  updateSubjectEnrolled,
+  updateGrades,
 } from "../../controllers/students/SubjectsController";
 
 const router = Router();
@@ -33,6 +35,8 @@ router.delete("/students/:id", deleteStudentById);
 
 router.get("/student/subjects/:id", getStudentSubjects);
 router.post("/student/subjects/:id", addStudenSubject);
+router.patch("/student/subjects/:id", updateSubjectEnrolled);
+router.patch("/student/subject/grade/:id", updateGrades);
 router.delete("/student/subjects/:id", deleteStudentSubject);
 
 export default router;

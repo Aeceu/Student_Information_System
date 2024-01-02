@@ -55,3 +55,24 @@ export type TUpdateStudent = {
   school_section: string;
   school_year: string;
 };
+
+export type TSubjectEnrolled = {
+  id: string;
+  studentId: string;
+  grade?: number;
+  code: string;
+  subject_name: string;
+  units: number;
+  professor?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export type TUpdateSubjectEnrolled = {
+  id?: string;
+  code: string;
+  subject_name: string;
+  units: number;
+  grade?: number;
+  professor?: string;
+};

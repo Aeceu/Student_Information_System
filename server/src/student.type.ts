@@ -101,5 +101,6 @@ export type TAddNewSubjectToStudent = {
     subject_name: string;
     units: number;
     grade?: number;
+    professor?: string;
   };
 };

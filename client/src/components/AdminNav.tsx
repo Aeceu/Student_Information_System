@@ -12,7 +12,6 @@ const AdminNav = () => {
         <Link to="/admin">Home</Link>
         <Link to="/admin/dashboard">Dashboard</Link>
         <Link to="/admin/subjects">Subjects</Link>
-        <Link to="/admin/sections">Sections</Link>
       </div>
       <button
         onClick={admin_logout}

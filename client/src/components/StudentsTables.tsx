@@ -12,6 +12,7 @@ import { useState } from "react";
 import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { axiosPrivate } from "@/api/axios";
 import AddNewStudentModal from "./modals/AddNewStudentModal";
+import { useNavigate } from "react-router-dom";
 
 type TStudentTables = {
   students: TStudent[] | null;
@@ -22,6 +23,7 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
   const setSelectedStudent = SelectedStudentStore(
     (state) => state.setSeletedStudent
   );
+  const navigate = useNavigate();
   const setUpdate = SelectedStudentStore((state) => state.setUpdate);
   const setIsLoading = SelectedStudentStore((state) => state.setIsLoading);
   const [selected, setSelected] = useState<number | undefined>();
@@ -64,11 +66,16 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
       setIsLoading(true);
       const res = await axiosPrivate.get(`/student/${id}`);
       setSelectedStudent(res.data);
+      navigate("/admin/dashboard");
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleClear = () => {
+    setSelectedStudent(null);
   };
 
   return (
@@ -98,13 +105,20 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
             ))}
         </TableBody>
       </Table>
-      <span className="w-full flex items-center justify-end p-2">
+      <span className="w-full flex items-center justify-end p-4 gap-2">
         <button
           type="button"
           onClick={() => setAddNewStudent(true)}
-          className="px-3 py-1.5 bg-emerald-500 text-white rounded-md text-xs shadow-xl hover:scale-105 duration-200 transition-all"
+          className="px-4 py-2 bg-emerald-500 text-white rounded-md text-xs shadow-xl hover:scale-105 duration-200 transition-all"
         >
           Add New Student
+        </button>
+        <button
+          type="button"
+          onClick={handleClear}
+          className="px-4 py-2 bg-red-500 text-white rounded-md text-xs shadow-xl hover:scale-105 duration-200 transition-all"
+        >
+          Clear Entries
         </button>
       </span>
       {addNewStudent && <AddNewStudentModal setShow={setAddNewStudent} />}

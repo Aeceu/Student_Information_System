@@ -11,7 +11,6 @@ import Login from "./pages/Login";
 import AdminLayout from "./components/layouts/AdminLayout";
 import AdminHome from "./pages/admin/AdminHome";
 import StudentsSubjects from "./pages/admin/StudentsSubjects";
-import StudentsSections from "./pages/admin/StudentsSections";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import DefaultInfo from "./components/DefaultInfo";
 import UpdatingInfo from "./components/UpdateingInfo";
@@ -35,10 +34,9 @@ const App = () => {
             <Route index element={<DefaultInfo />} />
             <Route path="update" element={<UpdatingInfo />} />
             <Route path="student/grades/:id" element={<Grades />} />
-            <Route path="student/subjects/:id" element={<Subjects />} />
+            <Route path="student/subjects/:id?" element={<Subjects />} />
           </Route>
           <Route path="admin/subjects" element={<StudentsSubjects />} />
-          <Route path="admin/sections" element={<StudentsSections />} />
         </Route>
       </Route>
 

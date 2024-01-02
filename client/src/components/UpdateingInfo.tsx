@@ -79,7 +79,9 @@ const UpdatingInfo = () => {
       <div className="w-full  p-4 flex items-center justify-between  gap-4">
         <div className="w-full h-full grid  grid-cols-3 gap-2">
           <span className="col-span-3 flex items-center justify-between ">
-            <h1 className=" text-2xl  text-red-500 ">Student's Profile</h1>
+            <h1 className=" text-2xl  text-red-500 ">
+              Update Student's Profile
+            </h1>
           </span>
           <span className="flex flex-col justify-center gap-1">
             <p className="text-xs text-red-500 font-bold">Firstname:</p>

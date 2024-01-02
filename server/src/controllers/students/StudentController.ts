@@ -97,7 +97,7 @@ export const updateStudent = async (req: Request, res: Response) => {
     const id = req.params.id;
     const { data }: TUpdateStudent = req.body;
 
-    const student = await prisma.student.update({
+    const student: TStudent | null = await prisma.student.update({
       where: {
         id,
       },
@@ -125,6 +125,10 @@ export const updateStudent = async (req: Request, res: Response) => {
       },
     });
 
+    if (student) {
+      delete student["password"];
+      delete student["refreshToken"];
+    }
     res.status(200).json(student);
   } catch (error) {
     console.log(error);

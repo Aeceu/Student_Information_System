@@ -1,4 +1,7 @@
+import { useLocation } from "react-router-dom";
+
 const StudentsSubjects = () => {
-  return <div>StudentsSubjects</div>;
+  const lol = useLocation();
+  return <div>{lol.pathname}</div>;
 };
 export default StudentsSubjects;

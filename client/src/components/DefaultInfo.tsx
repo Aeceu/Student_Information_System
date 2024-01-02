@@ -121,7 +121,7 @@ const DefaultInfo = () => {
       </div>
       <div className="flex items-center gap-4 p-4 w-full">
         <Link
-          to={`student/subjects/${123}`}
+          to={`student/subjects/?id=${seletedStudent?.id}`}
           className="px-4 py-2 bg-blue-500 text-white text-xs rounded-md shadow-xl hover:scale-105 duration-200 transition-all"
         >
           View Subjects

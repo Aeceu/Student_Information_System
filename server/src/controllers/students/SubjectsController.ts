@@ -34,10 +34,11 @@ export const addStudenSubject = async (req: Request, res: Response) => {
         code: data.code,
         subject_name: data.subject_name,
         units: data.units,
+        professor: data.professor,
         studentId: id,
       },
     });
-    res.status(200).json(newSub);
+    res.status(200).json("New subject enrolled!");
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
@@ -48,8 +49,62 @@ export const addStudenSubject = async (req: Request, res: Response) => {
 export const deleteStudentSubject = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-
+    await prisma.subjectsEnrolled.delete({
+      where: {
+        id,
+      },
+    });
     res.status(200).json("Student subject deleted successfully!");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+//TODO: Update the grades
+export const updateGrades = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const grade = req.body;
+
+    await prisma.subjectsEnrolled.update({
+      where: {
+        id,
+      },
+      data: {
+        grade,
+      },
+    });
+
+    res.status(200).json("Grade updated successfully!");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+//TODO: Update the subjectsEnrolled information
+export const updateSubjectEnrolled = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const { data }: TAddNewSubjectToStudent = req.body;
+
+    const updatedSubject = await prisma.subjectsEnrolled.update({
+      where: {
+        id,
+      },
+      data: {
+        code: data.code,
+        subject_name: data.subject_name,
+        units: data.units,
+        grade: data.grade,
+        professor: data.professor,
+      },
+    });
+    res.status(200).json({
+      message: "Subject updated!",
+      updatedSubject,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
