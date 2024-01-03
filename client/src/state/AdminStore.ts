@@ -13,6 +13,8 @@ const AdminStore = create<TAdminStore>()((set) => ({
     id: "",
     name: "",
     role: "",
+    email: "",
+    username: "",
   },
   setAdmin: (admin) => {
     set({ admin });

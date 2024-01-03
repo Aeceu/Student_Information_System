@@ -1,5 +1,7 @@
 export type TAdmin = {
   id: string;
+  username: string;
+  email: string;
   name: string;
   password?: string | null;
   refreshToken?: string | null;
@@ -10,6 +12,8 @@ export type TAdmin = {
 
 export type TAdminSignUp = {
   data: {
+    username: string;
+    email: string;
     name: string;
     password: string;
   };
@@ -17,7 +21,7 @@ export type TAdminSignUp = {
 
 export type TAdminLogin = {
   data: {
-    name: string;
+    email: string;
     password: string;
   };
 };

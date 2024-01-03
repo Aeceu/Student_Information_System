@@ -126,12 +126,6 @@ const DefaultInfo = () => {
         >
           View Subjects
         </Link>
-        <Link
-          to={`student/grades/${123}`}
-          className="px-4 py-2 bg-emerald-500 text-white text-xs rounded-md shadow-xl hover:scale-105 duration-200 transition-all"
-        >
-          View Grades
-        </Link>
       </div>
     </div>
   );

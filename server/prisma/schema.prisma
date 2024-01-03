@@ -66,13 +66,15 @@ model SubjectsEnrolled {
   professor    String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
-  Student   Student? @relation(fields: [studentId], references: [id],onDelete: Cascade)
-  studentId String?
+  Student      Student? @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId    String?
 }
 
 model admin {
   id           String   @id @default(uuid())
+  username     String
   name         String
+  email        String
   password     String
   refreshToken String?  @db.Text()
   role         String   @default("ADMIN")

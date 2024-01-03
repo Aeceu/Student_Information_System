@@ -10,7 +10,6 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import AdminLayout from "./components/layouts/AdminLayout";
 import AdminHome from "./pages/admin/AdminHome";
-import StudentsSubjects from "./pages/admin/StudentsSubjects";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import DefaultInfo from "./components/DefaultInfo";
 import UpdatingInfo from "./components/UpdateingInfo";
@@ -36,7 +35,6 @@ const App = () => {
             <Route path="student/grades/:id" element={<Grades />} />
             <Route path="student/subjects/:id?" element={<Subjects />} />
           </Route>
-          <Route path="admin/subjects" element={<StudentsSubjects />} />
         </Route>
       </Route>
 

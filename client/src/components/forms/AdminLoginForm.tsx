@@ -12,7 +12,7 @@ const AdminLoginForm = () => {
   const setToken = AdminStore((state) => state.setToken);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
-    name: "",
+    email: "",
     password: "",
   });
 
@@ -47,7 +47,7 @@ const AdminLoginForm = () => {
       setLoading(false);
       setData({
         password: "",
-        name: "",
+        email: "",
       });
     }
   };
@@ -60,9 +60,9 @@ const AdminLoginForm = () => {
     >
       <input
         type="text"
-        id="name"
-        placeholder="name"
-        value={data.name}
+        id="email"
+        placeholder="email"
+        value={data.email}
         onChange={(e) => handleChange(e)}
         className="text-sm w-full text-black outline-none px-4 py-1 rounded-sm  shadow-slate-sm "
       />
@@ -80,7 +80,11 @@ const AdminLoginForm = () => {
         className="w-full px-8 py-1 bg-red-500 shadow-slate-md text-white  flex items-center justify-center rounded-sm
         hover:scale-105 duration-300 transition-all cursor-pointer"
       >
-        {loading ? <LuLoader2 size="2em" className="animate-spin" /> : "Log in"}
+        {loading ? (
+          <LuLoader2 size="1.5rem" className="animate-spin" />
+        ) : (
+          "Log in"
+        )}
       </button>
     </form>
   );

@@ -1,5 +1,6 @@
 import { axiosPrivate } from "@/api/axios";
 import SubjectsTables from "@/components/SubjectsTables";
+import AddNewSubjectModal from "@/components/modals/AddNewSubjectModal";
 import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { useEffect, useState } from "react";
 import { LuLoader2 } from "react-icons/lu";
@@ -14,6 +15,7 @@ const Subjects = () => {
   const subjectsEnrolled = SelectedStudentStore(
     (state) => state.subjectsEnrolled
   );
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -40,8 +42,18 @@ const Subjects = () => {
 
   if (subjectsEnrolled?.length === 0) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full h-full flex flex-col items-center justify-center">
         <h1>No enrolled subjects</h1>
+        <span className="w-full flex items-center justify-center gap-4 p-2">
+          <button
+            type="button"
+            onClick={() => setShowModal(true)}
+            className="px-3 py-1.5 bg-bl0ue-500 bg-blue-500 text-white rounded-md text-xs shadow-xl hover:scale-105 duration-200 transition-all"
+          >
+            Add New Subject
+          </button>
+        </span>
+        {showModal && <AddNewSubjectModal setShowModal={setShowModal} />}
       </div>
     );
   }

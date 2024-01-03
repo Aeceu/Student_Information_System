@@ -10,13 +10,13 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { data }: TAdminLogin = req.body;
 
-    if (!data.name || !data.password) {
+    if (!data.password || !data.email) {
       return res.status(400).send("Please fill-up the missing information!");
     }
 
     const admin: TAdmin | null = await prisma.admin.findFirst({
       where: {
-        name: data.name,
+        email: data.email,
       },
     });
 
@@ -92,6 +92,8 @@ export const signup = async (req: Request, res: Response) => {
 
     await prisma.admin.create({
       data: {
+        username: data.username,
+        email: data.email,
         name: data.name,
         password: hashPass,
       },

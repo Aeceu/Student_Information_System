@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
-import { TAdminUpdateStudentInfo } from "../../admin.type";
+import { TAdmin, TAdminUpdateStudentInfo } from "../../admin.type";
 
 const prisma = new PrismaClient();
 
@@ -63,5 +63,36 @@ export const AdminDeleteStudent = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
+  }
+};
+
+//TODO: Get all the admins
+export const GetAllAdmins = async (req: Request, res: Response) => {
+  try {
+    const admins = await prisma.admin.findMany({
+      select: {
+        id: true,
+        username: true,
+        name: true,
+        email: true,
+        role: true,
+      },
+    });
+    res.status(200).json(admins);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+//TODO: Get the length of admins and students
+export const GetCounts = async (req: Request, res: Response) => {
+  try {
+    const students_count = await prisma.student.count();
+    const admins_count = await prisma.admin.count();
+    res.status(200).json({ students_count, admins_count });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
   }
 };
