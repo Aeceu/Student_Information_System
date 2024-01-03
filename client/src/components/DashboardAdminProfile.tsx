@@ -5,7 +5,7 @@ import { Separator } from "./ui/separator";
 const DashboardAdminProfile = () => {
   const admin = AdminStore((state) => state.admin);
   return (
-    <div className="p-4 row-span-2 w-full shadow-2xl rounded-md bg-white border border-red-50">
+    <div className="p-4  w-1/4 h-full shadow-2xl rounded-md bg-white border border-red-50">
       <div className="relative p-4 h-[150px] flex justify-center items-end bg-red-400 rounded-md shadow-xl ">
         <Avatar className="w-[100px] h-[100px] absolute -bottom-12 shadow-xl border-[4px] border-red-500">
           <AvatarImage src="https://github.com/shadcn.png" />

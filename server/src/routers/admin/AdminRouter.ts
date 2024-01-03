@@ -4,8 +4,10 @@ import { handleRefreshToken } from "../../controllers/admin/AdminRefreshToken";
 import {
   AdminDeleteStudent,
   AdminUpdateStudentInfo,
+  DeleteAdmin,
   GetAllAdmins,
   GetCounts,
+  UpdateAdmin,
 } from "../../controllers/admin/AdminController";
 const router = Router();
 
@@ -15,6 +17,8 @@ router.get("/admin/logout", logout);
 router.get("/admin/refresh", handleRefreshToken);
 router.get("/admins", GetAllAdmins);
 router.get("/usercount", GetCounts);
+router.delete("/admin/:id", DeleteAdmin);
+router.patch("/admin/:id", UpdateAdmin);
 
 router.patch("/admin/updateStudent", AdminUpdateStudentInfo);
 router.delete("/admin/student/:id", AdminDeleteStudent);

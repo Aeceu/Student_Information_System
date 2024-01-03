@@ -96,3 +96,43 @@ export const GetCounts = async (req: Request, res: Response) => {
     res.status(500).json(error);
   }
 };
+
+//TODO: Update the admin's information
+export const UpdateAdmin = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const { data } = req.body;
+    const updatedAdmin = await prisma.admin.update({
+      where: {
+        id,
+      },
+      data: {
+        name: data.name,
+        username: data.username,
+        email: data.email,
+        role: data.role,
+      },
+    });
+    res.status(200).json(updatedAdmin);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+//TODO: Delete the account of admin
+export const DeleteAdmin = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    await prisma.admin.delete({
+      where: {
+        id,
+      },
+    });
+    res.status(200).json("Account deleted successfully!");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};

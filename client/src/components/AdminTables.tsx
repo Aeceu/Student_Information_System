@@ -12,6 +12,23 @@ import { LuLoader2 } from "react-icons/lu";
 import { TAdmin } from "@/admin.type";
 
 const AdminTables = () => {
+  return (
+    <div className="w-full h-full shadow-2xl rounded-md bg-white border border-red-50 flex flex-col justify-between">
+      <Tables />
+      <div className="flex items-center justify-end p-2">
+        <button
+          type="button"
+          className="rounded-md bg-green-500 px-2 py-1.5 shadow-xl text-white text-sm hover:scale-105 duration-200 transition-all"
+        >
+          Add new
+        </button>
+      </div>
+    </div>
+  );
+};
+export default AdminTables;
+
+const Tables = () => {
   const [loading, setLoading] = useState(false);
   const [admins, setAdmins] = useState<TAdmin[]>([]);
 
@@ -74,4 +91,3 @@ const AdminTables = () => {
     </Table>
   );
 };
-export default AdminTables;
