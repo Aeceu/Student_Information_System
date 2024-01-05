@@ -13,8 +13,8 @@ import {
   updateStudent,
 } from "../../controllers/students/StudentController";
 import {
+  AddSubjectEnrolled,
   getStudentSubjects,
-  addStudenSubject,
   deleteStudentSubject,
   updateSubjectEnrolled,
   updateGrades,
@@ -22,8 +22,8 @@ import {
 
 const router = Router();
 
-router.post("/student/login", login);
 router.post("/student/signup", signup);
+router.post("/student/login", login);
 router.get("/student/logout", logout);
 router.get("/student/refresh", handleRefreshToken);
 
@@ -34,7 +34,7 @@ router.patch("/students/:id", updateStudent);
 router.delete("/students/:id", deleteStudentById);
 
 router.get("/student/subjects/:id", getStudentSubjects);
-router.post("/student/subjects/:id", addStudenSubject);
+router.post("/student/subjects/:id", AddSubjectEnrolled);
 router.patch("/student/subjects/:id", updateSubjectEnrolled);
 router.patch("/student/subject/grade/:id", updateGrades);
 router.delete("/student/subjects/:id", deleteStudentSubject);

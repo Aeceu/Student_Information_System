@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { TStudent, TUpdateStudent } from "../../student.type";
+import cloudinary from "../../utils/cloudinary";
 
 const prisma = new PrismaClient();
 
@@ -15,7 +16,7 @@ export const getStudent = async (req: Request, res: Response) => {
       },
       include: {
         address: true,
-        subjects_enrolled: true,
+        profile_image: true,
       },
     });
     if (student) {
@@ -140,11 +141,19 @@ export const updateStudent = async (req: Request, res: Response) => {
 export const deleteStudentById = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    await prisma.student.delete({
+    const student = await prisma.student.delete({
       where: {
         id,
       },
+      include: {
+        profile_image: true,
+      },
     });
+
+    if (student.profile_image?.image_url) {
+      await cloudinary.uploader.destroy(student.profile_image?.image_url);
+    }
+
     res.status(200).send("Student account deleted successfully!");
   } catch (error) {
     console.log(error);

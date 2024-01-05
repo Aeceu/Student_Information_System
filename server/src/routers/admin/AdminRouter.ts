@@ -18,9 +18,8 @@ router.get("/admin/refresh", handleRefreshToken);
 router.get("/admins", GetAllAdmins);
 router.get("/usercount", GetCounts);
 router.delete("/admin/:id", DeleteAdmin);
+router.put("/admin/updateStudent", AdminUpdateStudentInfo);
 router.patch("/admin/:id", UpdateAdmin);
-
-router.patch("/admin/updateStudent", AdminUpdateStudentInfo);
 router.delete("/admin/student/:id", AdminDeleteStudent);
 
 export default router;

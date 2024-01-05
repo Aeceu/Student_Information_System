@@ -102,6 +102,17 @@ const UpdateSubjectModal = ({
               className="outline-none px-2 py-1 w-full border-b border-red-500 text-xs"
             />
           </span>
+          <span className="w-full flex flex-col items-center justify-center">
+            <p className="w-full text-xs text-stone-500">Grades</p>
+            <input
+              type="number"
+              value={subject.grade}
+              onChange={(e) =>
+                setSubject({ ...subject, grade: Number(e.target.value) })
+              }
+              className="outline-none px-2 py-1 w-full border-b border-red-500 text-xs"
+            />
+          </span>
         </div>
         <span className="w-full flex flex-col items-center justify-center">
           <p className="w-full text-xs text-stone-500">Subject name</p>

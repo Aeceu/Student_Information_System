@@ -1,10 +1,11 @@
 import { axiosPrivate } from "@/api/axios";
-import SubjectsTables from "@/components/SubjectsTables";
+import SubjectLayout from "@/components/layouts/SubjectLayout";
 import AddNewSubjectModal from "@/components/modals/AddNewSubjectModal";
+import FirstYearTables from "@/components/tables/FirstYearTables";
 import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { useEffect, useState } from "react";
 import { LuLoader2 } from "react-icons/lu";
-import { useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 const Subjects = () => {
   const lol = useLocation();
@@ -40,7 +41,7 @@ const Subjects = () => {
     );
   }
 
-  if (subjectsEnrolled?.length === 0) {
+  if (subjectsEnrolled === null) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center">
         <h1>No enrolled subjects</h1>
@@ -58,6 +59,12 @@ const Subjects = () => {
     );
   }
 
-  return <SubjectsTables />;
+  return (
+    <Routes>
+      <Route path="/*" element={<SubjectLayout />}>
+        <Route index element={<FirstYearTables />} />
+      </Route>
+    </Routes>
+  );
 };
 export default Subjects;

@@ -33,6 +33,7 @@ export type TStudentSignUp = {
     role: string;
     type: "REGULAR" | "IRREGULAR";
   };
+  file: string | null;
 };
 
 export type TStudent = {
@@ -46,6 +47,11 @@ export type TStudent = {
   contact_number: string;
   gender: "MALE" | "FEMALE" | "GAY" | "LESBIAN" | "UNKNOWN";
   religion: string;
+  profile_image?: {
+    id: string;
+    secure_url: string;
+    image_url: string;
+  } | null;
   address: {
     Street_name: string;
     baranggay: string;
@@ -95,12 +101,19 @@ export type TUpdateStudent = {
   };
 };
 
-export type TAddNewSubjectToStudent = {
+export type TAddNewYearAndSem = {
   data: {
+    year: "FIRST" | "SECOND" | "THIRD" | "FOURTH";
+    semester: "FIRST" | "SECOND";
+  };
+};
+
+export type TAddNewSubjectAndGradesInSem = {
+  data: {
+    grade?: number;
     code: string;
     subject_name: string;
     units: number;
-    grade?: number;
     professor?: string;
   };
 };

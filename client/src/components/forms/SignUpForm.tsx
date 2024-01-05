@@ -48,7 +48,7 @@ const SignUpForm = () => {
     school_section: "",
     type: "",
   });
-
+  const [file, setFile] = useState<string | ArrayBuffer | null>(null);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.id]: e.target.value });
   };
@@ -57,7 +57,7 @@ const SignUpForm = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post("/student/signup", { data });
+      const res = await axios.post("/student/signup", { data, file });
       toast.success(res.data);
       navigate("/login");
     } catch (error) {
@@ -129,6 +129,17 @@ const SignUpForm = () => {
     });
   };
 
+  function handleFile(e: ChangeEvent<HTMLInputElement>) {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+      reader.onloadend = () => {
+        setFile(reader.result);
+      };
+    }
+  }
+
   return (
     <div className="text-black relative w-full min-h-screen flex   justify-center bg-[url(./bodybg.jpg)] bg-cover bg-center p-4">
       <img
@@ -189,6 +200,17 @@ const SignUpForm = () => {
               onChange={(e) => handleChange(e)}
               placeholder="lastname"
               className="text-xs outline-none w-full px-4 py-1.5 border border-red-500 rounded-md shadow-xl"
+            />
+          </span>
+          <span className="w-full flex flex-col gap-1">
+            <p className="text-xs text-slate-950">1 x 1 Picture:</p>
+            <input
+              type="file"
+              id="file"
+              onChange={(e) => handleFile(e)}
+              accept="image/png, image/gif, image/jpeg"
+              placeholder="profile image"
+              className="text-xs outline-none w-full px-4 py-1 border border-red-500 rounded-md shadow-xl"
             />
           </span>
         </span>

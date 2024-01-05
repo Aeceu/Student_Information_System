@@ -76,7 +76,12 @@ const DefaultInfo = () => {
         </div>
         <div className="flex flex-col gap-2">
           <img
-            src="/earist-logo.png"
+            src={
+              seletedStudent?.profile_image &&
+              seletedStudent?.profile_image.secure_url
+                ? seletedStudent?.profile_image.secure_url
+                : "/earist-logo.png"
+            }
             alt="img"
             className="w-[200px] object-cover border"
           />
@@ -121,10 +126,16 @@ const DefaultInfo = () => {
       </div>
       <div className="flex items-center gap-4 p-4 w-full">
         <Link
-          to={`student/subjects/?id=${seletedStudent?.id}`}
+          to={`student/subjects/first_year/?id=${seletedStudent?.id}`}
           className="px-4 py-2 bg-blue-500 text-white text-xs rounded-md shadow-xl hover:scale-105 duration-200 transition-all"
         >
           View Subjects
+        </Link>
+        <Link
+          to={`student/ID/${seletedStudent?.id}`}
+          className="px-4 py-2 bg-green-500 text-white text-xs rounded-md shadow-xl hover:scale-105 duration-200 transition-all"
+        >
+          View Student ID
         </Link>
       </div>
     </div>

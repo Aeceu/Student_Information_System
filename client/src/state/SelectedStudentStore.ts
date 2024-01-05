@@ -1,4 +1,4 @@
-import { TStudent, TSubjectEnrolled } from "@/student.type";
+import { TStudent, TStudentSubjects } from "@/student.type";
 import { create } from "zustand";
 
 type TSelectedStudentStoreProps = {
@@ -8,8 +8,8 @@ type TSelectedStudentStoreProps = {
   setSeletedStudent: (student: TStudent | null) => void;
   update: boolean;
   setUpdate: (update: boolean) => void;
-  subjectsEnrolled: TSubjectEnrolled[] | null;
-  setSubjectEnrolled: (subjectsEnrolled: TSubjectEnrolled[] | null) => void;
+  subjectsEnrolled: TStudentSubjects | null;
+  setSubjectEnrolled: (subjectsEnrolled: TStudentSubjects | null) => void;
 };
 
 const SelectedStudentStore = create<TSelectedStudentStoreProps>()((set) => ({

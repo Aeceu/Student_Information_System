@@ -28,6 +28,7 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
   const setIsLoading = SelectedStudentStore((state) => state.setIsLoading);
   const [selected, setSelected] = useState<number | undefined>();
   const [addNewStudent, setAddNewStudent] = useState(false);
+
   if (loading) {
     return (
       <div className="w-full flex justify-center p-4">
@@ -66,6 +67,8 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
       setIsLoading(true);
       const res = await axiosPrivate.get(`/student/${id}`);
       setSelectedStudent(res.data);
+      console.log(res.data);
+
       navigate("/admin/dashboard");
     } catch (error) {
       console.log(error);
@@ -96,7 +99,9 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
                 className={`text-xs cursor-pointer hover:bg-yellow-500 ${
                   i === selected && "bg-yellow-500 text-white"
                 }`}
-                onClick={() => handleSelect(student.id, i)}
+                onClick={() => {
+                  handleSelect(student.id, i);
+                }}
               >
                 <TableCell className="">{student.student_number}</TableCell>
                 <TableCell className="">{`${student.last_name}, ${student.first_name} ${student.middle_name}`}</TableCell>

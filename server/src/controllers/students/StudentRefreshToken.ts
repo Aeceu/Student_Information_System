@@ -16,6 +16,7 @@ export const handleRefreshToken = async (req: Request, res: Response) => {
     },
     include: {
       address: true,
+      profile_image: true,
     },
   });
 

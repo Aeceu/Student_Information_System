@@ -1,5 +1,4 @@
 import { axiosPrivate } from "@/api/axios";
-import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { motion } from "framer-motion";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
@@ -7,15 +6,16 @@ import { LuLoader2 } from "react-icons/lu";
 
 type TAddNewSubjectModal = {
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  semID: string;
 };
 
-const AddNewSubjectModal = ({ setShowModal }: TAddNewSubjectModal) => {
-  const selectedStudent = SelectedStudentStore((state) => state.seletedStudent);
+const AddNewSubjectModal = ({ setShowModal, semID }: TAddNewSubjectModal) => {
   const [subject, setSubject] = useState({
     code: "",
     subject_name: "",
     units: 0,
     professor: "",
+    grade: 0,
   });
   const [loading, setLoading] = useState(false);
 
@@ -23,10 +23,9 @@ const AddNewSubjectModal = ({ setShowModal }: TAddNewSubjectModal) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axiosPrivate.post(
-        `/student/subjects/${selectedStudent?.id}`,
-        { data: subject }
-      );
+      const res = await axiosPrivate.post(`/student/subjects/${semID}`, {
+        data: subject,
+      });
       toast.success(res.data);
       setLoading(false);
       setSubject({
@@ -34,6 +33,7 @@ const AddNewSubjectModal = ({ setShowModal }: TAddNewSubjectModal) => {
         subject_name: "",
         units: 0,
         professor: "",
+        grade: 0,
       });
       setShowModal(false);
       window.location.reload();
@@ -45,13 +45,15 @@ const AddNewSubjectModal = ({ setShowModal }: TAddNewSubjectModal) => {
         subject_name: "",
         units: 0,
         professor: "",
+        grade: 0,
       });
       setShowModal(false);
     }
   };
+  console.log(semID);
 
   return (
-    <div className="z-50 absolute top-0 left-0 w-full min-h-screen bg-black/70 flex items-center justify-center p-8">
+    <div className="z-[100] fixed top-0 left-0 w-full min-h-screen bg-black/70 flex items-center justify-center p-8">
       <motion.form
         initial={{ scale: 0 }}
         animate={{ scale: 1, transition: { duration: 0.3 } }}
@@ -80,6 +82,17 @@ const AddNewSubjectModal = ({ setShowModal }: TAddNewSubjectModal) => {
               value={subject.units}
               onChange={(e) =>
                 setSubject({ ...subject, units: Number(e.target.value) })
+              }
+              className="outline-none px-2 py-1 w-full border-b border-red-500 text-xs"
+            />
+          </span>
+          <span className="w-full flex flex-col items-center justify-center">
+            <p className="w-full text-xs text-stone-500">Grade</p>
+            <input
+              type="text"
+              value={subject.grade}
+              onChange={(e) =>
+                setSubject({ ...subject, grade: Number(e.target.value) })
               }
               className="outline-none px-2 py-1 w-full border-b border-red-500 text-xs"
             />

@@ -20,7 +20,7 @@ const UpdateStudentModal = ({
   const handleUpdate = async () => {
     try {
       setLoading(true);
-      const res = await axiosPrivate.patch("/admin/updateStudent", {
+      const res = await axiosPrivate.put("/admin/updateStudent", {
         data: updateStudent,
       });
       toast.success(res.data);

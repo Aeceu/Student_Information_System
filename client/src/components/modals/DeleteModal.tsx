@@ -30,7 +30,7 @@ const DeleteModal = ({ id, setShow }: TDeleteModalProps) => {
     }
   };
   return (
-    <div className="z-50 absolute top-0 left-0 w-full min-h-screen bg-black/70 flex items-center justify-center">
+    <div className="z-[100] absolute top-0 left-0 w-full min-h-screen bg-black/70 flex items-center justify-center">
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}

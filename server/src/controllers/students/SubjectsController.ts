@@ -1,19 +1,71 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
-import { TAddNewSubjectToStudent } from "../../student.type";
+import {
+  TAddNewSubjectAndGradesInSem,
+  TAddNewYearAndSem,
+} from "../../student.type";
 
 const prisma = new PrismaClient();
 
 //TODO: Get the student's subjects by ID
 export const getStudentSubjects = async (req: Request, res: Response) => {
   try {
-    const id = req.params.id;
+    const id = req.params.id; // id of the student
 
-    const student_subjects = await prisma.subjectsEnrolled.findMany({
+    const student_subjects = await prisma.subjectsGrades.findFirst({
       where: {
         studentId: id,
       },
-      include: {},
+      include: {
+        FirstYearGrades: {
+          include: {
+            semester_grades: {
+              include: {
+                subjects_enrolled: true,
+                SecondYearGrades: false,
+                ThirdYearGrades: false,
+                FourthYearGrades: false,
+              },
+            },
+          },
+        },
+        SecondYearGrades: {
+          include: {
+            semester_grades: {
+              include: {
+                subjects_enrolled: true,
+                FirstYearGrades: false,
+                ThirdYearGrades: false,
+                FourthYearGrades: false,
+              },
+            },
+          },
+        },
+        ThirdYearGrades: {
+          include: {
+            semester_grades: {
+              include: {
+                subjects_enrolled: true,
+                FirstYearGrades: false,
+                SecondYearGrades: false,
+                FourthYearGrades: false,
+              },
+            },
+          },
+        },
+        FourthYearGrades: {
+          include: {
+            semester_grades: {
+              include: {
+                subjects_enrolled: true,
+                FirstYearGrades: false,
+                SecondYearGrades: false,
+                FourthYearGrades: false,
+              },
+            },
+          },
+        },
+      },
     });
 
     res.status(200).json(student_subjects);
@@ -23,29 +75,32 @@ export const getStudentSubjects = async (req: Request, res: Response) => {
   }
 };
 
-//TODO: Add new subjects to student
-export const addStudenSubject = async (req: Request, res: Response) => {
+//TODO: Add enrolled subject to the student
+export const AddSubjectEnrolled = async (req: Request, res: Response) => {
   try {
-    const id = req.params.id;
-    const { data }: TAddNewSubjectToStudent = req.body;
+    const id = req.params.id; // ID of the semester (first or second)
+    const { data }: TAddNewSubjectAndGradesInSem = req.body;
 
-    const newSub = await prisma.subjectsEnrolled.create({
+    await prisma.subjectsEnrolled.create({
       data: {
         code: data.code,
         subject_name: data.subject_name,
         units: data.units,
+        grade: data.grade,
         professor: data.professor,
-        studentId: id,
+        semesterGradesId: id,
       },
     });
-    res.status(200).json("New subject enrolled!");
+
+    res.status(200).json("New subject added!");
   } catch (error) {
     console.log(error);
+
     res.status(500).json(error);
   }
 };
 
-//TODO: Delete one subject from student
+// //TODO: Delete one subject from student
 export const deleteStudentSubject = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
@@ -64,7 +119,7 @@ export const deleteStudentSubject = async (req: Request, res: Response) => {
 //TODO: Update the grades
 export const updateGrades = async (req: Request, res: Response) => {
   try {
-    const id = req.params.id;
+    const id = req.params.id; // id of the subject
     const grade = req.body;
 
     await prisma.subjectsEnrolled.update({
@@ -87,7 +142,7 @@ export const updateGrades = async (req: Request, res: Response) => {
 export const updateSubjectEnrolled = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const { data }: TAddNewSubjectToStudent = req.body;
+    const { data }: TAddNewSubjectAndGradesInSem = req.body;
 
     const updatedSubject = await prisma.subjectsEnrolled.update({
       where: {

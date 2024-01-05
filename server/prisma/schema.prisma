@@ -8,31 +8,31 @@ datasource db {
 }
 
 model Student {
-  id                String             @id @default(uuid())
-  student_number    String             @unique
-  first_name        String
-  middle_name       String?
-  last_name         String
-  age               Int
-  birth_date        String
-  gender            GENDER
-  religion          String
-  contact_number    String
-  address           Address?
-  refreshToken      String?            @db.Text()
-  email             String             @unique
-  password          String
-  profile_image     Profile_Image?
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @default(now())
+  id             String           @id @default(uuid())
+  student_number String           @unique
+  first_name     String
+  middle_name    String?
+  last_name      String
+  age            Int
+  birth_date     String
+  gender         GENDER
+  religion       String
+  contact_number String
+  address        Address?
+  refreshToken   String?          @db.Text()
+  email          String           @unique
+  password       String
+  profile_image  Profile_Image?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now())
   //! Only admin and professor can update this !!!
-  school_year       String?
-  school_college    String?
-  school_course     String?
-  school_section    String?
-  role              ROLE               @default(STUDENT)
-  type              TYPE               @default(REGULAR)
-  subjects_enrolled SubjectsEnrolled[]
+  school_year    String?
+  school_college String?
+  school_course  String?
+  school_section String?
+  role           ROLE             @default(STUDENT)
+  type           TYPE             @default(REGULAR)
+  SubjectsGrades SubjectsGrades[]
 }
 
 model Address {
@@ -57,17 +57,79 @@ model Profile_Image {
   student    Student  @relation(fields: [student_id], references: [id], onDelete: Cascade)
 }
 
+// Holds all the grades and subjects from 1st to 4th year with 2 sems each
+model SubjectsGrades {
+  id        String   @id @default(uuid())
+  Student   Student? @relation(fields: [studentId], references: [id])
+  studentId String?
+
+  FirstYearGrades  FirstYearGrades[]
+  SecondYearGrades SecondYearGrades[]
+  ThirdYearGrades  ThirdYearGrades[]
+  FourthYearGrades FourthYearGrades[]
+}
+
+model FirstYearGrades {
+  id              String           @id @default(uuid())
+  year            String           @default("FIRST YEAR")
+  semester_grades SemesterGrades[]
+
+  SubjectsGrades   SubjectsGrades? @relation(fields: [subjectsGradesId], references: [id])
+  subjectsGradesId String?
+}
+
+model SecondYearGrades {
+  id               String           @id @default(uuid())
+  year             String           @default("SECOND YEAR")
+  semester_grades  SemesterGrades[]
+  SubjectsGrades   SubjectsGrades?  @relation(fields: [subjectsGradesId], references: [id])
+  subjectsGradesId String?
+}
+
+model ThirdYearGrades {
+  id               String           @id @default(uuid())
+  year             String           @default("THIRD YEAR")
+  semester_grades  SemesterGrades[]
+  SubjectsGrades   SubjectsGrades?  @relation(fields: [subjectsGradesId], references: [id])
+  subjectsGradesId String?
+}
+
+model FourthYearGrades {
+  id               String           @id @default(uuid())
+  year             String           @default("FOURTH YEAR")
+  semester_grades  SemesterGrades[]
+  SubjectsGrades   SubjectsGrades?  @relation(fields: [subjectsGradesId], references: [id])
+  subjectsGradesId String?
+}
+
+model SemesterGrades {
+  id                String             @id @default(uuid())
+  semester          SEMESTER
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @default(now())
+  subjects_enrolled SubjectsEnrolled[]
+
+  FirstYearGrades    FirstYearGrades?  @relation(fields: [firstYearGradesId], references: [id])
+  firstYearGradesId  String?
+  SecondYearGrades   SecondYearGrades? @relation(fields: [secondYearGradesId], references: [id])
+  secondYearGradesId String?
+  ThirdYearGrades    ThirdYearGrades?  @relation(fields: [thirdYearGradesId], references: [id])
+  thirdYearGradesId  String?
+  FourthYearGrades   FourthYearGrades? @relation(fields: [fourthYearGradesId], references: [id])
+  fourthYearGradesId String?
+}
+
 model SubjectsEnrolled {
-  id           String   @id @default(uuid())
-  grade        Float?
-  code         String
-  subject_name String
-  units        Int
-  professor    String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now())
-  Student      Student? @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  studentId    String?
+  id               String          @id @default(uuid())
+  grade            Float?
+  code             String
+  subject_name     String
+  units            Int
+  professor        String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @default(now())
+  SemesterGrades   SemesterGrades? @relation(fields: [semesterGradesId], references: [id])
+  semesterGradesId String?
 }
 
 model admin {
@@ -99,4 +161,16 @@ enum ROLE {
   STUDENT
   ADMIN
   PROFESSOR
+}
+
+enum YEAR {
+  FIRST
+  SECOND
+  THIRD
+  FOURTH
+}
+
+enum SEMESTER {
+  FIRST
+  SECOND
 }

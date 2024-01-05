@@ -15,7 +15,7 @@ const SubjectUpdateDeleteButton = ({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
-    <TableCell className="flex items-center justify-center gap-2">
+    <TableCell className="flex items-center  gap-2">
       <button
         type="button"
         onClick={() => setShowModal(true)}

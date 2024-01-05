@@ -17,6 +17,11 @@ export type TStudent = {
     province: string;
     postal_code: string;
   };
+  profile_image: {
+    id: string;
+    secure_url: string;
+    image_url: string;
+  };
   refreshToken?: string;
   email: string;
   createdAt?: Date;
@@ -56,18 +61,6 @@ export type TUpdateStudent = {
   school_year: string;
 };
 
-export type TSubjectEnrolled = {
-  id: string;
-  studentId: string;
-  grade?: number;
-  code: string;
-  subject_name: string;
-  units: number;
-  professor?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-};
-
 export type TUpdateSubjectEnrolled = {
   id?: string;
   code: string;
@@ -75,4 +68,44 @@ export type TUpdateSubjectEnrolled = {
   units: number;
   grade?: number;
   professor?: string;
+};
+
+export type SemesterEnrolled = {
+  id: string;
+  grade?: number;
+  code: string;
+  subject_name: string;
+  units: number;
+  professor?: string;
+  createdAt: string;
+  updatedAt: string;
+  semesterGradesId: string;
+};
+
+export type SemesterGrades = {
+  id: string;
+  semester: string;
+  createdAt: string;
+  updatedAt: string;
+  firstYearGradesId: string | null;
+  secondYearGradesId: string | null;
+  thirdYearGradesId: string | null;
+  fourthYearGradesId: string | null;
+  subjects_enrolled: SemesterEnrolled[];
+};
+
+export type YearGrades = {
+  id: string;
+  year: string;
+  subjectsGradesId: string;
+  semester_grades: SemesterGrades[];
+};
+
+export type TStudentSubjects = {
+  id: string;
+  studentId: string;
+  FirstYearGrades: YearGrades[];
+  SecondYearGrades: YearGrades[];
+  ThirdYearGrades: YearGrades[];
+  FourthYearGrades: YearGrades[];
 };

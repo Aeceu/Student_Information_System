@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { TStudent, TStudentLogin, TStudentSignUp } from "../../student.type";
+import cloudinary from "../../utils/cloudinary";
 
 const prisma = new PrismaClient();
 
@@ -16,6 +17,7 @@ export const login = async (req: Request, res: Response) => {
       },
       include: {
         address: true,
+        profile_image: true,
       },
     });
 
@@ -78,11 +80,18 @@ export const login = async (req: Request, res: Response) => {
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    const { data }: TStudentSignUp = req.body;
+    const { data, file }: TStudentSignUp = req.body;
+
+    if (!file) {
+      return res.status(400).json("Please add yor 1x1 photo");
+    }
 
     const studentExists = await prisma.student.findFirst({
       where: {
         student_number: data.student_number,
+      },
+      include: {
+        profile_image: true,
       },
     });
 
@@ -91,6 +100,10 @@ export const signup = async (req: Request, res: Response) => {
     }
 
     const hashPass = await bcrypt.hash(data.password, 12);
+
+    const result = await cloudinary.uploader.upload(file, {
+      folder: "student",
+    });
 
     await prisma.student.create({
       data: {
@@ -111,6 +124,84 @@ export const signup = async (req: Request, res: Response) => {
             postal_code: data.address.postal_code,
           },
         },
+        profile_image: {
+          create: {
+            image_url: result.public_id,
+            secure_url: result.secure_url,
+          },
+        },
+        SubjectsGrades: {
+          create: {
+            FirstYearGrades: {
+              create: {
+                year: "FIRST YEAR",
+                semester_grades: {
+                  createMany: {
+                    data: [
+                      {
+                        semester: "FIRST",
+                      },
+                      {
+                        semester: "SECOND",
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+            SecondYearGrades: {
+              create: {
+                year: "SECOND YEAR",
+                semester_grades: {
+                  createMany: {
+                    data: [
+                      {
+                        semester: "FIRST",
+                      },
+                      {
+                        semester: "SECOND",
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+            ThirdYearGrades: {
+              create: {
+                year: "THIRD YEAR",
+                semester_grades: {
+                  createMany: {
+                    data: [
+                      {
+                        semester: "FIRST",
+                      },
+                      {
+                        semester: "SECOND",
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+            FourthYearGrades: {
+              create: {
+                year: "FOURTH YEAR",
+                semester_grades: {
+                  createMany: {
+                    data: [
+                      {
+                        semester: "FIRST",
+                      },
+                      {
+                        semester: "SECOND",
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+        },
         contact_number: data.contact_number,
         email: data.email,
         password: hashPass,
@@ -122,6 +213,7 @@ export const signup = async (req: Request, res: Response) => {
         type: data.type,
       },
     });
+
     res.status(200).send("Registered successfully!");
   } catch (error) {
     console.log(error);

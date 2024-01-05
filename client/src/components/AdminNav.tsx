@@ -26,7 +26,7 @@ const AdminNav = () => {
   };
 
   return (
-    <nav className="w-full h-[50px] flex items-center justify-between px-16 bg-gradient-to-r from-red-500 via-red-600 to-red-400 bg-cover bg-center bg-no-repeat">
+    <nav className="z-50 w-full h-[50px] flex items-center justify-between px-16 bg-gradient-to-r from-red-500 via-red-600 to-red-400 bg-cover bg-center bg-no-repeat">
       <h1 className="text-white font-semibold">
         Earist Student Information System
       </h1>

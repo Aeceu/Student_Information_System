@@ -296,6 +296,7 @@ const UpdatingInfo = () => {
               className="px-2 py-1  outline-none text-xs border-b border-red-300"
             />
           </span>
+
           <span className="flex flex-col justify-center gap-1">
             <p className="text-xs text-red-500 font-bold">Contact number:</p>
             <input
@@ -311,7 +312,7 @@ const UpdatingInfo = () => {
 
         <div className="flex flex-col gap-2">
           <img
-            src="/earist-logo.png"
+            src={student?.profile_image.secure_url}
             alt="img"
             className="w-[200px] object-cover border"
           />

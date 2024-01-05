@@ -57,6 +57,7 @@ const AddNewStudentModal = ({ setShow }: TAddNewStudentModalProps) => {
     school_section: "",
     type: "",
   });
+  const [file, setFile] = useState<string | ArrayBuffer | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.id]: e.target.value });
@@ -66,7 +67,7 @@ const AddNewStudentModal = ({ setShow }: TAddNewStudentModalProps) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post("/student/signup", { data });
+      const res = await axios.post("/student/signup", { data, file });
       toast.success(res.data);
       setShow(false);
     } catch (error) {
@@ -138,6 +139,18 @@ const AddNewStudentModal = ({ setShow }: TAddNewStudentModalProps) => {
       type: "REGULAR",
     });
   };
+
+  function handleFile(e: ChangeEvent<HTMLInputElement>) {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+      reader.onloadend = () => {
+        setFile(reader.result);
+      };
+    }
+  }
+
   return (
     <div className="z-50 absolute top-0 left-0 w-full min-h-screen bg-black/70 flex items-center justify-center p-8">
       <motion.form
@@ -195,6 +208,17 @@ const AddNewStudentModal = ({ setShow }: TAddNewStudentModalProps) => {
               onChange={(e) => handleChange(e)}
               placeholder="lastname"
               className="text-xs outline-none w-full px-4 py-1.5 border border-red-500 rounded-md shadow-xl"
+            />
+          </span>
+          <span className="w-full flex flex-col gap-1">
+            <p className="text-xs text-slate-950">1 x 1 Picture:</p>
+            <input
+              type="file"
+              id="file"
+              onChange={(e) => handleFile(e)}
+              accept="image/png, image/gif, image/jpeg"
+              placeholder="profile image"
+              className="text-xs outline-none w-full px-4 py-1 border border-red-500 rounded-md shadow-xl"
             />
           </span>
         </span>
