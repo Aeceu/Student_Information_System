@@ -1,9 +1,11 @@
 import { axiosPrivate } from "@/api/axios";
+import NewStore from "@/state/NewStore";
 import { TUpdateSubjectEnrolled } from "@/student.type";
 import { motion } from "framer-motion";
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import toast from "react-hot-toast";
 import { LuLoader2 } from "react-icons/lu";
+import { useLocation } from "react-router-dom";
 
 type TUpdateSubjectModal = {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -15,7 +17,6 @@ const UpdateSubjectModal = ({
   subjectEnrolled,
 }: TUpdateSubjectModal) => {
   const [loading, setLoading] = useState(false);
-
   const [subject, setSubject] = useState<TUpdateSubjectEnrolled>({
     code: "",
     subject_name: "",
@@ -23,6 +24,12 @@ const UpdateSubjectModal = ({
     grade: 0,
     professor: "",
   });
+
+  const fetchSubjectsEnrolled = NewStore(
+    (state) => state.fetchSubjectsEnrolled
+  );
+  const lol = useLocation();
+  const params = lol.search.split("=")[1];
 
   useEffect(() => {
     setSubject({
@@ -52,7 +59,7 @@ const UpdateSubjectModal = ({
         professor: "",
       });
       setShowModal(false);
-      window.location.reload();
+      fetchSubjectsEnrolled(params);
     } catch (error) {
       console.log(error);
     } finally {

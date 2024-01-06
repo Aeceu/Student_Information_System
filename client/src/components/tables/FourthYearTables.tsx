@@ -1,20 +1,18 @@
-import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { useState } from "react";
 import AddNewSubjectModal from "../modals/AddNewSubjectModal";
 import SubjectsTablesHeaders from "../SubjectsTablesHeaders";
 import { handleAvg } from "@/utils/HandleAvg";
 import GradesTable from "./GradeTable";
+import NewStore from "@/state/NewStore";
 
 const FourthYearTables = () => {
   const [semID, setSemID] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const subjectsEnrolled = SelectedStudentStore(
-    (state) => state.subjectsEnrolled
-  );
+  const subjectsEnrolled = NewStore((state) => state.subjectsEnrolled);
 
   return (
     <div className="w-full overflow-y-auto h-full flex flex-col gap-4 p-4">
-      {subjectsEnrolled?.ThirdYearGrades[0].semester_grades.map((sem, i) => (
+      {subjectsEnrolled?.FourthYearGrades[0].semester_grades.map((sem, i) => (
         <div
           key={i}
           className="w-full flex flex-col border border-black rounded-md"

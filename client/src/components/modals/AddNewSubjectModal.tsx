@@ -1,8 +1,10 @@
 import { axiosPrivate } from "@/api/axios";
+import NewStore from "@/state/NewStore";
 import { motion } from "framer-motion";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
 import { LuLoader2 } from "react-icons/lu";
+import { useLocation } from "react-router-dom";
 
 type TAddNewSubjectModal = {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +20,12 @@ const AddNewSubjectModal = ({ setShowModal, semID }: TAddNewSubjectModal) => {
     grade: 0,
   });
   const [loading, setLoading] = useState(false);
+
+  const fetchSubjectsEnrolled = NewStore(
+    (state) => state.fetchSubjectsEnrolled
+  );
+  const lol = useLocation();
+  const params = lol.search.split("=")[1];
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -36,7 +44,7 @@ const AddNewSubjectModal = ({ setShowModal, semID }: TAddNewSubjectModal) => {
         grade: 0,
       });
       setShowModal(false);
-      window.location.reload();
+      fetchSubjectsEnrolled(params);
     } catch (error) {
       console.log(error);
       setLoading(false);

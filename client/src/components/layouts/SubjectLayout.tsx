@@ -1,30 +1,26 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import SelectedStudentStore from "@/state/SelectedStudentStore";
-import { axiosPrivate } from "@/api/axios";
 import { LuLoader2 } from "react-icons/lu";
+import NewStore from "@/state/NewStore";
 
 const SubjectLayout = () => {
   const [loading, setLoading] = useState(false);
-  const setSubjectEnrolled = SelectedStudentStore(
-    (state) => state.setSubjectEnrolled
+  const fetchSubjectsEnrolled = NewStore(
+    (state) => state.fetchSubjectsEnrolled
   );
 
   const lol = useLocation();
   const params = lol.search.split("=")[1];
+
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        setLoading(true);
-        const res = await axiosPrivate.get(`/student/subjects/${params}`);
-        setSubjectEnrolled(res.data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetch();
+    try {
+      setLoading(true);
+      fetchSubjectsEnrolled(params);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   if (loading) {

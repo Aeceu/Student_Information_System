@@ -1,8 +1,10 @@
 import { axiosPrivate } from "@/api/axios";
+import NewStore from "@/state/NewStore";
 import { motion } from "framer-motion";
 import { SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
 import { LuLoader2 } from "react-icons/lu";
+import { useLocation } from "react-router-dom";
 
 type TDeleteSubjectModal = {
   subjectID: string | undefined;
@@ -15,13 +17,19 @@ const DeleteSubjectModal = ({
 }: TDeleteSubjectModal) => {
   const [loading, setLoading] = useState(false);
 
+  const fetchSubjectsEnrolled = NewStore(
+    (state) => state.fetchSubjectsEnrolled
+  );
+  const lol = useLocation();
+  const params = lol.search.split("=")[1];
+
   const handleDelete = async () => {
     try {
       setLoading(true);
       const res = await axiosPrivate.delete(`/student/subjects/${subjectID}`);
       toast.success(res.data);
       setLoading(false);
-      window.location.reload();
+      fetchSubjectsEnrolled(params);
     } catch (error) {
       console.log(error);
       setLoading(false);
