@@ -20,11 +20,10 @@ export const getStudentSubjects = async (req: Request, res: Response) => {
         FirstYearGrades: {
           include: {
             semester_grades: {
-              include: {
+              select: {
+                id: true,
+                semester: true,
                 subjects_enrolled: true,
-                SecondYearGrades: false,
-                ThirdYearGrades: false,
-                FourthYearGrades: false,
               },
             },
           },

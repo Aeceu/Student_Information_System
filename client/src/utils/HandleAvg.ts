@@ -1,15 +1,13 @@
-import { YearGrades } from "@/student.type";
+import { SemesterGrades } from "@/student.type";
 
 type THandleAvg = {
-  index: number;
-  yearGrades: YearGrades[];
+  yearGrades: SemesterGrades;
 };
 
-export const handleAvg = ({ index, yearGrades }: THandleAvg) => {
+export const handleAvg = ({ yearGrades }: THandleAvg) => {
   let avg = 0;
-  const total_avg =
-    yearGrades[0].semester_grades[index].subjects_enrolled.length;
-  yearGrades[0].semester_grades[index].subjects_enrolled.map((sem) => {
+  const total_avg = yearGrades.subjects_enrolled.length;
+  yearGrades.subjects_enrolled.map((sem) => {
     if (sem.grade) {
       avg += sem.grade;
     }

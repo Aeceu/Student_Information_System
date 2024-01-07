@@ -43,7 +43,6 @@ const AddNewSubjectModal = ({ setShowModal, semID }: TAddNewSubjectModal) => {
         professor: "",
         grade: 0,
       });
-      setShowModal(false);
       fetchSubjectsEnrolled(params);
     } catch (error) {
       console.log(error);
@@ -55,7 +54,6 @@ const AddNewSubjectModal = ({ setShowModal, semID }: TAddNewSubjectModal) => {
         professor: "",
         grade: 0,
       });
-      setShowModal(false);
     }
   };
   console.log(semID);

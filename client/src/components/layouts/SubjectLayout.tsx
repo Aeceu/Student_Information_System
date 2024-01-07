@@ -32,7 +32,7 @@ const SubjectLayout = () => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
+    <div className="w-full h-full flex flex-col items-center overflow-hidden">
       <YearNav />
       <Outlet />
     </div>
@@ -44,29 +44,28 @@ const YearNav = () => {
   const lol = useLocation();
   const params = lol.search.split("=")[1];
   return (
-    <nav className="shadow-xl w-full flex items-center  gap-2 p-4 ">
-      <h1 className="text-sm text-red-500 font-bold">View grades:</h1>
+    <nav className=" w-full flex items-center ">
       <Link
         to={`first_year/?id=${params}`}
-        className="px-5 py-2 bg-emerald-400 text-white shadow-xl text-sm rounded-md hover:scale-105 duration-200 transition-all"
+        className="p-4 text-center bg-red-500 text-white border border-white  shadow-xl text-xs w-full  hover:scale-105 duration-200 transition-all"
       >
         First Year
       </Link>
       <Link
         to={`second_year/?id=${params}`}
-        className="px-5 py-2 bg-blue-400 text-white shadow-xl text-sm rounded-md hover:scale-105 duration-200 transition-all"
+        className="p-4 text-center bg-red-500 text-white border border-white  shadow-xl text-xs w-full  hover:scale-105 duration-200 transition-all"
       >
         Second Year
       </Link>
       <Link
         to={`third_year/?id=${params}`}
-        className="px-5 py-2 bg-amber-400 text-white shadow-xl text-sm rounded-md hover:scale-105 duration-200 transition-all"
+        className="p-4 text-center bg-red-500 text-white border border-white  shadow-xl text-xs w-full  hover:scale-105 duration-200 transition-all"
       >
         Third Year
       </Link>
       <Link
         to={`fourth_year/?id=${params}`}
-        className="px-5 py-2 bg-fuchsia-400 text-white shadow-xl text-sm rounded-md hover:scale-105 duration-200 transition-all"
+        className="p-4 text-center bg-red-500 text-white border border-white  shadow-xl text-xs w-full  hover:scale-105 duration-200 transition-all"
       >
         Fourth Year
       </Link>

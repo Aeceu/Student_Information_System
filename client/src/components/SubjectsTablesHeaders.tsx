@@ -1,4 +1,4 @@
-import SelectedStudentStore from "@/state/SelectedStudentStore";
+import NewStore from "@/state/NewStore";
 
 type TSubjectsTablesHeaders = {
   year: string;
@@ -6,9 +6,9 @@ type TSubjectsTablesHeaders = {
 };
 
 const SubjectsTablesHeaders = ({ sem, year }: TSubjectsTablesHeaders) => {
-  const selectedStudent = SelectedStudentStore((state) => state.seletedStudent);
+  const selectedStudent = NewStore((state) => state.selectedStudent);
   return (
-    <div className="overflow-hidden rounded-t-sm w-full grid grid-cols-2 gap-2 py-2 px-4 text-xs bg-[url(/bodybg.jpg)] relative">
+    <div className="overflow-hidden  w-full grid grid-cols-2 gap-2 py-2 px-4 text-xs bg-[url(/bodybg.jpg)] relative">
       <span className="flex items-center gap-2 text-[10px]">
         <h1 className="text-slate-950 font-bold ">Name:</h1>
         <p className="text-white font-bold">{`${selectedStudent?.last_name}, ${selectedStudent?.first_name} ${selectedStudent?.middle_name[0]}.`}</p>

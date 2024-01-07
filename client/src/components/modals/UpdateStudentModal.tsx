@@ -1,4 +1,5 @@
 import { axiosPrivate } from "@/api/axios";
+import NewStore from "@/state/NewStore";
 import { TUpdateStudent } from "@/student.type";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -9,14 +10,18 @@ import { useNavigate } from "react-router-dom";
 type TUpdateStudentModalProps = {
   updateStudent: TUpdateStudent;
   setShow: Dispatch<SetStateAction<boolean>>;
+  id: string;
 };
 
 const UpdateStudentModal = ({
   updateStudent,
   setShow,
+  id,
 }: TUpdateStudentModalProps) => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const fetchSelectedStudent = NewStore((state) => state.fetchSelectedStudent);
+
   const handleUpdate = async () => {
     try {
       setLoading(true);
@@ -27,7 +32,7 @@ const UpdateStudentModal = ({
       navigate("/admin/dashboard");
       setLoading(false);
       setShow(false);
-      window.location.reload();
+      fetchSelectedStudent(id);
     } catch (error) {
       console.log(error);
     } finally {

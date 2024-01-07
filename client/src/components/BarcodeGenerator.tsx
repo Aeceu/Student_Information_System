@@ -1,8 +1,8 @@
-import SelectedStudentStore from "@/state/SelectedStudentStore";
+import NewStore from "@/state/NewStore";
 import Barcode from "react-barcode";
 
 const BarcodeGenerator = () => {
-  const selectedStudent = SelectedStudentStore((state) => state.seletedStudent);
+  const selectedStudent = NewStore((state) => state.selectedStudent);
   if (!selectedStudent?.student_number) {
     return <h1 className="w-full text-center">There is no Student Number!</h1>;
   }

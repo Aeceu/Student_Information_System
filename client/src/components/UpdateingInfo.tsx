@@ -1,4 +1,3 @@
-import SelectedStudentStore from "@/state/SelectedStudentStore";
 import { ChangeEvent, useEffect, useState } from "react";
 import UpdateStudentButton from "./UpdateStudentButton";
 import {
@@ -10,8 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import NewStore from "@/state/NewStore";
 const UpdatingInfo = () => {
-  const student = SelectedStudentStore((state) => state.seletedStudent);
+  const student = NewStore((state) => state.selectedStudent);
   const [updateStudent, setUpdateStudent] = useState({
     first_name: "",
     middle_name: "",
@@ -316,7 +316,12 @@ const UpdatingInfo = () => {
             alt="img"
             className="w-[200px] object-cover border"
           />
-          <UpdateStudentButton updateStudent={updateStudent} />
+          {student?.id && (
+            <UpdateStudentButton
+              updateStudent={updateStudent}
+              id={student.id}
+            />
+          )}
         </div>
       </div>
       <div className="w-full  grid grid-cols-3 gap-2 px-4">

@@ -10,14 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import AdminStore from "@/state/AdminStore";
-import SelectedStudentStore from "@/state/SelectedStudentStore";
+import NewStore from "@/state/NewStore";
 
 const AdminNav = () => {
   const admin = AdminStore((state) => state.admin);
   const admin_logout = useAdminLogout();
-  const setSelectedStudent = SelectedStudentStore(
-    (state) => state.setSeletedStudent
-  );
+  const setSelectedStudent = NewStore((state) => state.setSelectedStudent);
   const navigate = useNavigate();
 
   const handleNavigate = (link: string) => {

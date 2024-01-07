@@ -1,9 +1,9 @@
-import SelectedStudentStore from "@/state/SelectedStudentStore";
 import DeleteStudentButton from "./DeleteStudentButton";
 import { Link } from "react-router-dom";
+import NewStore from "@/state/NewStore";
 
 const DefaultInfo = () => {
-  const seletedStudent = SelectedStudentStore((state) => state.seletedStudent);
+  const seletedStudent = NewStore((state) => state.selectedStudent);
   return (
     <div className="flex flex-col justify-between w-full h-full">
       <div className="w-full p-4 flex items-center justify-between  gap-4">

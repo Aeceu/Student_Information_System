@@ -1,10 +1,10 @@
 import BarcodeGenerator from "@/components/BarcodeGenerator";
-import SelectedStudentStore from "@/state/SelectedStudentStore";
+import NewStore from "@/state/NewStore";
 import { LuArrowLeftFromLine } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
 const IDPage = () => {
-  const selectedStudent = SelectedStudentStore((state) => state.seletedStudent);
+  const selectedStudent = NewStore((state) => state.selectedStudent);
   return (
     <div className="relative overflow-hidden h-full w-full flex flex-col sitems-center justify-center gap-2 bg-[url(/bodybg.jpg)]">
       <Link
@@ -38,7 +38,7 @@ const IDPage = () => {
 export default IDPage;
 
 const FRONTID = () => {
-  const selectedStudent = SelectedStudentStore((state) => state.seletedStudent);
+  const selectedStudent = NewStore((state) => state.selectedStudent);
   return (
     <div className="relative overflow-hidden w-[180px] h-[280px] shadow-xl bg-gradient-to-b from-red-900 via-red-200 to-red-50 rounded-xl flex flex-col justify-between">
       <div className="absolute w-full h-1/2 rounded-xl bg-[url(/uni_id.jpg)] bg-cover bg-center opacity-10" />
@@ -105,7 +105,7 @@ const FRONTID = () => {
 };
 
 const BACKID = () => {
-  const seletedStudent = SelectedStudentStore((state) => state.seletedStudent);
+  const seletedStudent = NewStore((state) => state.selectedStudent);
   return (
     <div className="relative overflow-hidden w-[180px] h-[280px] shadow-xl border  text-black bg-white rounded-xl flex flex-col p-2">
       <div className="w-full flex flex-col  rounded-md  border border-black">

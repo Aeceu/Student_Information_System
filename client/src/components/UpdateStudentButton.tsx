@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 
 type TUpdateStudentButtonProps = {
   updateStudent: TUpdateStudent;
+  id: string;
 };
 
-const UpdateStudentButton = ({ updateStudent }: TUpdateStudentButtonProps) => {
+const UpdateStudentButton = ({
+  updateStudent,
+  id,
+}: TUpdateStudentButtonProps) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -26,7 +30,11 @@ const UpdateStudentButton = ({ updateStudent }: TUpdateStudentButtonProps) => {
         Cancel
       </Link>
       {show && (
-        <UpdateStudentModal setShow={setShow} updateStudent={updateStudent} />
+        <UpdateStudentModal
+          setShow={setShow}
+          updateStudent={updateStudent}
+          id={id}
+        />
       )}
     </span>
   );

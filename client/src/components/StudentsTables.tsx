@@ -9,10 +9,9 @@ import {
 } from "./ui/table";
 import { LuLoader2, LuUserX2 } from "react-icons/lu";
 import { useState } from "react";
-import SelectedStudentStore from "@/state/SelectedStudentStore";
-import { axiosPrivate } from "@/api/axios";
 import AddNewStudentModal from "./modals/AddNewStudentModal";
 import { useNavigate } from "react-router-dom";
+import NewStore from "@/state/NewStore";
 
 type TStudentTables = {
   students: TStudent[] | null;
@@ -20,14 +19,12 @@ type TStudentTables = {
 };
 
 const StudentsTables = ({ students, loading }: TStudentTables) => {
-  const setSelectedStudent = SelectedStudentStore(
-    (state) => state.setSeletedStudent
-  );
+  const clearSelectedStudent = NewStore((state) => state.clearSelectedStudent);
   const navigate = useNavigate();
-  const setUpdate = SelectedStudentStore((state) => state.setUpdate);
-  const setIsLoading = SelectedStudentStore((state) => state.setIsLoading);
+  const setIsLoading = NewStore((state) => state.setIsLoading);
   const [selected, setSelected] = useState<number | undefined>();
   const [addNewStudent, setAddNewStudent] = useState(false);
+  const fetchSelectedStudent = NewStore((state) => state.fetchSelectedStudent);
 
   if (loading) {
     return (
@@ -61,24 +58,16 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
   }
 
   const handleSelect = async (id: string, key: number) => {
-    setUpdate(false);
     setSelected(key);
     try {
       setIsLoading(true);
-      const res = await axiosPrivate.get(`/student/${id}`);
-      setSelectedStudent(res.data);
-      console.log(res.data);
-
+      fetchSelectedStudent(id);
       navigate("/admin/dashboard");
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleClear = () => {
-    setSelectedStudent(null);
   };
 
   return (
@@ -120,7 +109,7 @@ const StudentsTables = ({ students, loading }: TStudentTables) => {
         </button>
         <button
           type="button"
-          onClick={handleClear}
+          onClick={clearSelectedStudent}
           className="px-4 py-2 bg-red-500 text-white rounded-md text-xs shadow-xl hover:scale-105 duration-200 transition-all"
         >
           Clear Entries
