@@ -129,13 +129,13 @@ const DefaultInfo = () => {
           to={`student/subjects/first_year/?id=${seletedStudent?.id}`}
           className="px-4 py-2 bg-blue-500 text-white text-xs rounded-md shadow-xl hover:scale-105 duration-200 transition-all"
         >
-          View Subjects
+          View Enrolled Subjects
         </Link>
         <Link
           to={`student/ID/${seletedStudent?.id}`}
-          className="px-4 py-2 bg-green-500 text-white text-xs rounded-md shadow-xl hover:scale-105 duration-200 transition-all"
+          className="px-4 py-2 bg-blue-500 text-white text-xs rounded-md shadow-xl hover:scale-105 duration-200 transition-all"
         >
-          View Student ID
+          View Student's ID
         </Link>
       </div>
     </div>

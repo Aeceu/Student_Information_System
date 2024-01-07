@@ -24,6 +24,11 @@ export type TStudentSignUp = {
       region: string;
       postal_code: string;
     };
+    emergency: {
+      name: string;
+      contact_number: string;
+      relation: string;
+    };
     email: string;
     password: string;
     school_year: string;
@@ -59,6 +64,11 @@ export type TStudent = {
     province: string;
     region: string;
     postal_code: string;
+  } | null;
+  emergency: {
+    name: string;
+    contact_number: string;
+    relation: string;
   } | null;
   refreshToken?: string | null;
   email: string;
@@ -97,6 +107,11 @@ export type TUpdateStudent = {
       city: string;
       region: string;
       postal_code: string;
+    };
+    emergency: {
+      name: string;
+      contact_number: string;
+      relation: string;
     };
   };
 };

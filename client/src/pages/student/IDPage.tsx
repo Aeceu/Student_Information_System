@@ -134,15 +134,21 @@ const BACKID = () => {
         </p>
         <span className="flex items-center gap-1 px-2 mt-1">
           <p className="text-[7px] font-bold ">NAME:</p>
-          <p className="text-[7px] font-bold">MOTHER</p>
+          <p className="text-[7px] font-bold">
+            {seletedStudent?.emergency.name}
+          </p>
         </span>
         <span className="flex items-center gap-1 px-2">
           <p className="text-[7px] font-bold ">CONTACT NO.:</p>
-          <p className="text-[7px] font-bold">NUMBER</p>
+          <p className="text-[7px] font-bold">
+            {seletedStudent?.emergency.contact_number}
+          </p>
         </span>
         <span className="flex items-center gap-1 px-2">
-          <p className="text-[7px] font-bold ">ADDRESS:</p>
-          <p className="text-[7px] font-bold">home address</p>
+          <p className="text-[7px] font-bold ">RELATION:</p>
+          <p className="text-[7px] font-bold">
+            {seletedStudent?.emergency.relation}
+          </p>
         </span>
       </div>
       <div className="w-full flex flex-col  rounded-md border border-black mt-1">

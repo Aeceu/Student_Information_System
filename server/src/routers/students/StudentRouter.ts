@@ -7,6 +7,7 @@ import {
 import { handleRefreshToken } from "../../controllers/students/StudentRefreshToken";
 import {
   deleteStudentById,
+  getAllStudentBySchoolYear,
   getAllStudents,
   getAllStudentsByStudentNumber,
   getStudent,
@@ -30,6 +31,7 @@ router.get("/student/refresh", handleRefreshToken);
 router.get("/student/:id", getStudent);
 router.get("/students", getAllStudents);
 router.post("/students", getAllStudentsByStudentNumber);
+router.get("/students/:year", getAllStudentBySchoolYear);
 router.patch("/students/:id", updateStudent);
 router.delete("/students/:id", deleteStudentById);
 

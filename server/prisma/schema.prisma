@@ -23,6 +23,7 @@ model Student {
   email          String           @unique
   password       String
   profile_image  Profile_Image?
+  emergency      Emergency?
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @default(now())
   //! Only admin and professor can update this !!!
@@ -48,19 +49,39 @@ model Address {
 }
 
 model Profile_Image {
-  id         String   @id @default(uuid())
+  id         String      @id @default(uuid())
   secure_url String
   image_url  String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
-  student_id String   @unique
-  student    Student  @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now())
+  student_id String      @unique
+  student    Student     @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  Professor  Professor[]
+}
+
+model Emergency {
+  id             String  @id @default(uuid())
+  name           String
+  contact_number String
+  relation       String
+  studentId      String  @unique
+  student        Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+}
+
+model Professor {
+  id              String         @id @default(uuid())
+  name            String
+  username        String
+  email           String
+  password        String
+  profileImage    Profile_Image? @relation(fields: [profile_ImageId], references: [id])
+  profile_ImageId String?
 }
 
 // Holds all the grades and subjects from 1st to 4th year with 2 sems each
 model SubjectsGrades {
   id        String   @id @default(uuid())
-  Student   Student? @relation(fields: [studentId], references: [id])
+  Student   Student? @relation(fields: [studentId], references: [id], onDelete: Cascade)
   studentId String?
 
   FirstYearGrades  FirstYearGrades[]
@@ -74,7 +95,7 @@ model FirstYearGrades {
   year            String           @default("FIRST YEAR")
   semester_grades SemesterGrades[]
 
-  SubjectsGrades   SubjectsGrades? @relation(fields: [subjectsGradesId], references: [id])
+  SubjectsGrades   SubjectsGrades? @relation(fields: [subjectsGradesId], references: [id], onDelete: Cascade)
   subjectsGradesId String?
 }
 
@@ -82,7 +103,7 @@ model SecondYearGrades {
   id               String           @id @default(uuid())
   year             String           @default("SECOND YEAR")
   semester_grades  SemesterGrades[]
-  SubjectsGrades   SubjectsGrades?  @relation(fields: [subjectsGradesId], references: [id])
+  SubjectsGrades   SubjectsGrades?  @relation(fields: [subjectsGradesId], references: [id], onDelete: Cascade)
   subjectsGradesId String?
 }
 
@@ -90,7 +111,7 @@ model ThirdYearGrades {
   id               String           @id @default(uuid())
   year             String           @default("THIRD YEAR")
   semester_grades  SemesterGrades[]
-  SubjectsGrades   SubjectsGrades?  @relation(fields: [subjectsGradesId], references: [id])
+  SubjectsGrades   SubjectsGrades?  @relation(fields: [subjectsGradesId], references: [id], onDelete: Cascade)
   subjectsGradesId String?
 }
 
@@ -98,7 +119,7 @@ model FourthYearGrades {
   id               String           @id @default(uuid())
   year             String           @default("FOURTH YEAR")
   semester_grades  SemesterGrades[]
-  SubjectsGrades   SubjectsGrades?  @relation(fields: [subjectsGradesId], references: [id])
+  SubjectsGrades   SubjectsGrades?  @relation(fields: [subjectsGradesId], references: [id], onDelete: Cascade)
   subjectsGradesId String?
 }
 
@@ -109,13 +130,13 @@ model SemesterGrades {
   updatedAt         DateTime           @default(now())
   subjects_enrolled SubjectsEnrolled[]
 
-  FirstYearGrades    FirstYearGrades?  @relation(fields: [firstYearGradesId], references: [id])
+  FirstYearGrades    FirstYearGrades?  @relation(fields: [firstYearGradesId], references: [id], onDelete: Cascade)
   firstYearGradesId  String?
-  SecondYearGrades   SecondYearGrades? @relation(fields: [secondYearGradesId], references: [id])
+  SecondYearGrades   SecondYearGrades? @relation(fields: [secondYearGradesId], references: [id], onDelete: Cascade)
   secondYearGradesId String?
-  ThirdYearGrades    ThirdYearGrades?  @relation(fields: [thirdYearGradesId], references: [id])
+  ThirdYearGrades    ThirdYearGrades?  @relation(fields: [thirdYearGradesId], references: [id], onDelete: Cascade)
   thirdYearGradesId  String?
-  FourthYearGrades   FourthYearGrades? @relation(fields: [fourthYearGradesId], references: [id])
+  FourthYearGrades   FourthYearGrades? @relation(fields: [fourthYearGradesId], references: [id], onDelete: Cascade)
   fourthYearGradesId String?
 }
 
@@ -128,7 +149,7 @@ model SubjectsEnrolled {
   professor        String?
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @default(now())
-  SemesterGrades   SemesterGrades? @relation(fields: [semesterGradesId], references: [id])
+  SemesterGrades   SemesterGrades? @relation(fields: [semesterGradesId], references: [id], onDelete: Cascade)
   semesterGradesId String?
 }
 

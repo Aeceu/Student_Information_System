@@ -56,6 +56,30 @@ CREATE TABLE `Profile_Image` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Emergency` (
+    `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `contact_number` VARCHAR(191) NOT NULL,
+    `relation` VARCHAR(191) NOT NULL,
+    `studentId` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `Emergency_studentId_key`(`studentId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Professor` (
+    `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `username` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
+    `profile_ImageId` VARCHAR(191) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `SubjectsGrades` (
     `id` VARCHAR(191) NOT NULL,
     `studentId` VARCHAR(191) NULL,
@@ -150,31 +174,37 @@ ALTER TABLE `Address` ADD CONSTRAINT `Address_student_id_fkey` FOREIGN KEY (`stu
 ALTER TABLE `Profile_Image` ADD CONSTRAINT `Profile_Image_student_id_fkey` FOREIGN KEY (`student_id`) REFERENCES `Student`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `SubjectsGrades` ADD CONSTRAINT `SubjectsGrades_studentId_fkey` FOREIGN KEY (`studentId`) REFERENCES `Student`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Emergency` ADD CONSTRAINT `Emergency_studentId_fkey` FOREIGN KEY (`studentId`) REFERENCES `Student`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `FirstYearGrades` ADD CONSTRAINT `FirstYearGrades_subjectsGradesId_fkey` FOREIGN KEY (`subjectsGradesId`) REFERENCES `SubjectsGrades`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Professor` ADD CONSTRAINT `Professor_profile_ImageId_fkey` FOREIGN KEY (`profile_ImageId`) REFERENCES `Profile_Image`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `SecondYearGrades` ADD CONSTRAINT `SecondYearGrades_subjectsGradesId_fkey` FOREIGN KEY (`subjectsGradesId`) REFERENCES `SubjectsGrades`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `SubjectsGrades` ADD CONSTRAINT `SubjectsGrades_studentId_fkey` FOREIGN KEY (`studentId`) REFERENCES `Student`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ThirdYearGrades` ADD CONSTRAINT `ThirdYearGrades_subjectsGradesId_fkey` FOREIGN KEY (`subjectsGradesId`) REFERENCES `SubjectsGrades`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `FirstYearGrades` ADD CONSTRAINT `FirstYearGrades_subjectsGradesId_fkey` FOREIGN KEY (`subjectsGradesId`) REFERENCES `SubjectsGrades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `FourthYearGrades` ADD CONSTRAINT `FourthYearGrades_subjectsGradesId_fkey` FOREIGN KEY (`subjectsGradesId`) REFERENCES `SubjectsGrades`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `SecondYearGrades` ADD CONSTRAINT `SecondYearGrades_subjectsGradesId_fkey` FOREIGN KEY (`subjectsGradesId`) REFERENCES `SubjectsGrades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `SemesterGrades` ADD CONSTRAINT `SemesterGrades_firstYearGradesId_fkey` FOREIGN KEY (`firstYearGradesId`) REFERENCES `FirstYearGrades`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `ThirdYearGrades` ADD CONSTRAINT `ThirdYearGrades_subjectsGradesId_fkey` FOREIGN KEY (`subjectsGradesId`) REFERENCES `SubjectsGrades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `SemesterGrades` ADD CONSTRAINT `SemesterGrades_secondYearGradesId_fkey` FOREIGN KEY (`secondYearGradesId`) REFERENCES `SecondYearGrades`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `FourthYearGrades` ADD CONSTRAINT `FourthYearGrades_subjectsGradesId_fkey` FOREIGN KEY (`subjectsGradesId`) REFERENCES `SubjectsGrades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `SemesterGrades` ADD CONSTRAINT `SemesterGrades_thirdYearGradesId_fkey` FOREIGN KEY (`thirdYearGradesId`) REFERENCES `ThirdYearGrades`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `SemesterGrades` ADD CONSTRAINT `SemesterGrades_firstYearGradesId_fkey` FOREIGN KEY (`firstYearGradesId`) REFERENCES `FirstYearGrades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `SemesterGrades` ADD CONSTRAINT `SemesterGrades_fourthYearGradesId_fkey` FOREIGN KEY (`fourthYearGradesId`) REFERENCES `FourthYearGrades`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `SemesterGrades` ADD CONSTRAINT `SemesterGrades_secondYearGradesId_fkey` FOREIGN KEY (`secondYearGradesId`) REFERENCES `SecondYearGrades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `SubjectsEnrolled` ADD CONSTRAINT `SubjectsEnrolled_semesterGradesId_fkey` FOREIGN KEY (`semesterGradesId`) REFERENCES `SemesterGrades`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `SemesterGrades` ADD CONSTRAINT `SemesterGrades_thirdYearGradesId_fkey` FOREIGN KEY (`thirdYearGradesId`) REFERENCES `ThirdYearGrades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `SemesterGrades` ADD CONSTRAINT `SemesterGrades_fourthYearGradesId_fkey` FOREIGN KEY (`fourthYearGradesId`) REFERENCES `FourthYearGrades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `SubjectsEnrolled` ADD CONSTRAINT `SubjectsEnrolled_semesterGradesId_fkey` FOREIGN KEY (`semesterGradesId`) REFERENCES `SemesterGrades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

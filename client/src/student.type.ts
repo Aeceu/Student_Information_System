@@ -22,6 +22,11 @@ export type TStudent = {
     secure_url: string;
     image_url: string;
   };
+  emergency: {
+    name: string;
+    contact_number: string;
+    relation: string;
+  };
   refreshToken?: string;
   email: string;
   createdAt?: Date;
@@ -49,6 +54,11 @@ export type TUpdateStudent = {
     province: string;
     region: string;
     Street_name: string;
+  };
+  emergeny: {
+    name: string;
+    contact_number: string;
+    relation: string;
   };
   contact_number: string;
   email: string;

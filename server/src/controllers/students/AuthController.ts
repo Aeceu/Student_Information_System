@@ -18,6 +18,7 @@ export const login = async (req: Request, res: Response) => {
       include: {
         address: true,
         profile_image: true,
+        emergency: true,
       },
     });
 
@@ -128,6 +129,13 @@ export const signup = async (req: Request, res: Response) => {
           create: {
             image_url: result.public_id,
             secure_url: result.secure_url,
+          },
+        },
+        emergency: {
+          create: {
+            name: data.emergency.name,
+            contact_number: data.emergency.contact_number,
+            relation: data.emergency.relation,
           },
         },
         SubjectsGrades: {

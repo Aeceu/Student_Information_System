@@ -17,6 +17,7 @@ export const getStudent = async (req: Request, res: Response) => {
       include: {
         address: true,
         profile_image: true,
+        emergency: true,
       },
     });
     if (student) {
@@ -27,6 +28,26 @@ export const getStudent = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
+  }
+};
+
+//TODO: Get all students by School Year
+export const getAllStudentBySchoolYear = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const year = req.params.year;
+
+    const students = await prisma.student.findMany({
+      where: {
+        school_year: year,
+      },
+    });
+    res.status(200).json(students);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
   }
 };
 
@@ -51,6 +72,7 @@ export const getAllStudentsByStudentNumber = async (
         age: true,
         birth_date: true,
         address: true,
+        emergency: true,
         contact_number: true,
         gender: true,
         religion: true,
@@ -81,6 +103,7 @@ export const getAllStudents = async (req: Request, res: Response) => {
         first_name: true,
         middle_name: true,
         last_name: true,
+        school_year: true,
         type: true,
       },
     });
@@ -104,6 +127,7 @@ export const updateStudent = async (req: Request, res: Response) => {
       },
       include: {
         address: true,
+        emergency: true,
       },
       data: {
         first_name: data.first_name,
@@ -121,6 +145,13 @@ export const updateStudent = async (req: Request, res: Response) => {
             city: data.address.city,
             region: data.address.region,
             postal_code: data.address.postal_code,
+          },
+        },
+        emergency: {
+          update: {
+            name: data.emergency.name,
+            contact_number: data.emergency.contact_number,
+            relation: data.emergency.relation,
           },
         },
       },

@@ -40,6 +40,11 @@ const SignUpForm = () => {
       province: "",
       postal_code: "",
     },
+    emergency: {
+      name: "",
+      contact_number: "",
+      relation: "",
+    },
     email: "",
     password: "",
     school_year: "",
@@ -89,6 +94,11 @@ const SignUpForm = () => {
           province: "",
           postal_code: "",
         },
+        emergency: {
+          name: "",
+          contact_number: "",
+          relation: "",
+        },
         email: "",
         password: "",
         school_year: "",
@@ -118,6 +128,11 @@ const SignUpForm = () => {
         region: "",
         province: "",
         postal_code: "",
+      },
+      emergency: {
+        name: "",
+        contact_number: "",
+        relation: "",
       },
       email: "",
       password: "",
@@ -378,6 +393,63 @@ const SignUpForm = () => {
             />
           </span>
         </span>
+        {/* Emergeny Contact */}
+        <div className="w-full flex items-center gap-2 p-2">
+          <p className="flex-none  text-lg text-red-500 font-bold">
+            Emergency Contact
+          </p>
+          <div className="w-full h-[1px] border-b border-amber-500" />
+        </div>
+        <div className="w-full flex items-center gap-2 p-2">
+          <span className="flex flex-col w-full gap-1">
+            <p className="text-xs text-slate-950">Contact Name:</p>
+            <input
+              type="text"
+              value={data.emergency.name}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  emergency: { ...data.emergency, name: e.target.value },
+                })
+              }
+              placeholder="Contact Name"
+              className="text-xs outline-none w-full px-4 py-1.5 border border-red-500 rounded-md shadow-xl"
+            />
+          </span>
+          <span className="flex flex-col w-full gap-1">
+            <p className="text-xs text-slate-950">Contact No.:</p>
+            <input
+              type="text"
+              value={data.emergency.contact_number}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  emergency: {
+                    ...data.emergency,
+                    contact_number: e.target.value,
+                  },
+                })
+              }
+              placeholder="Contact Number"
+              className="text-xs outline-none w-full px-4 py-1.5 border border-red-500 rounded-md shadow-xl"
+            />
+          </span>
+          <span className="flex flex-col w-full gap-1">
+            <p className="text-xs text-slate-950">Relation:</p>
+            <input
+              type="text"
+              value={data.emergency.relation}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  emergency: { ...data.emergency, relation: e.target.value },
+                })
+              }
+              placeholder="Relation with the contact"
+              className="text-xs outline-none w-full px-4 py-1.5 border border-red-500 rounded-md shadow-xl"
+            />
+          </span>
+        </div>
         {/* Address */}
         <div className="w-full flex items-center gap-2 p-2">
           <p className=" text-lg text-red-500 font-bold">Address</p>
