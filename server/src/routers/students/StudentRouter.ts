@@ -10,7 +10,9 @@ import {
   getAllStudentBySchoolYear,
   getAllStudents,
   getAllStudentsByStudentNumber,
+  getCountsOfStudentType,
   getStudent,
+  getStudentsCountsByYear,
   updateStudent,
 } from "../../controllers/students/StudentController";
 import {
@@ -29,6 +31,8 @@ router.get("/student/logout", logout);
 router.get("/student/refresh", handleRefreshToken);
 
 router.get("/student/:id", getStudent);
+router.get("/students/counts", getStudentsCountsByYear);
+router.get("/students/type_counts", getCountsOfStudentType);
 router.get("/students", getAllStudents);
 router.post("/students", getAllStudentsByStudentNumber);
 router.get("/students/:year", getAllStudentBySchoolYear);

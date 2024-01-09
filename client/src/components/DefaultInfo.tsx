@@ -6,7 +6,7 @@ const DefaultInfo = () => {
   const seletedStudent = NewStore((state) => state.selectedStudent);
   return (
     <div className="flex flex-col justify-between w-full h-full">
-      <div className="w-full p-4 flex items-center justify-between  gap-4">
+      <div className="w-full h-full p-4 flex items-center justify-between  gap-4">
         <div className="w-full h-full grid  grid-cols-3 gap-2">
           <span className="col-span-3 flex items-center justify-between ">
             <h1 className=" text-2xl  text-red-500 ">Student's Profile</h1>

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const IDPage = () => {
   const selectedStudent = NewStore((state) => state.selectedStudent);
   return (
-    <div className="relative overflow-hidden h-full w-full flex flex-col sitems-center justify-center gap-2 bg-[url(/bodybg.jpg)]">
+    <div className="relative overflow-hidden h-full w-full flex flex-col items-center justify-center gap-2 bg-[url(/bodybg.jpg)] bg-cover ">
       <Link
         to="/admin/dashboard"
         className="text-white z-40 flex items-center  gap-2 absolute top-5 left-5 hover:border-b hover:border-white hover:scale-105 duration-200 transition-all"

@@ -31,6 +31,78 @@ export const getStudent = async (req: Request, res: Response) => {
   }
 };
 
+//TODO: Get the counts of all students each year
+export const getStudentsCountsByYear = async (req: Request, res: Response) => {
+  try {
+    const first_year = await prisma.student.findMany({
+      where: {
+        school_year: "1st Year",
+      },
+    });
+    const second_year = await prisma.student.findMany({
+      where: {
+        school_year: "2nd Year",
+      },
+    });
+    const third_year = await prisma.student.findMany({
+      where: {
+        school_year: "3rd Year",
+      },
+    });
+    const fourth_year = await prisma.student.findMany({
+      where: {
+        school_year: "4th Year",
+      },
+    });
+
+    res.status(200).json([
+      {
+        name: "1st Year",
+        total: first_year.length,
+      },
+      {
+        name: "2nd Year",
+        total: second_year.length,
+      },
+      {
+        name: "3rd Year",
+        total: third_year.length,
+      },
+      {
+        name: "4th Year",
+        total: fourth_year.length,
+      },
+    ]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+//TODO: Get the counts of all irregular and regullar students
+export const getCountsOfStudentType = async (req: Request, res: Response) => {
+  try {
+    const regular = await prisma.student.findMany({
+      where: {
+        type: "REGULAR",
+      },
+    });
+
+    const irregular = await prisma.student.findMany({
+      where: {
+        type: "IRREGULAR",
+      },
+    });
+
+    res.status(200).json([
+      { name: "Regular", value: regular.length },
+      { name: "Irregular", value: irregular.length },
+    ]);
+  } catch (error) {
+    res.status(50).json(error);
+  }
+};
+
 //TODO: Get all students by School Year
 export const getAllStudentBySchoolYear = async (
   req: Request,

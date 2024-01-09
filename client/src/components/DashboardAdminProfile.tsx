@@ -7,12 +7,12 @@ const DashboardAdminProfile = () => {
   return (
     <div className="p-4  w-1/4 h-full shadow-2xl rounded-md bg-white border border-red-50">
       <div className="relative p-4 h-[150px] flex justify-center items-end bg-red-400 rounded-md shadow-xl ">
-        <Avatar className="w-[100px] h-[100px] absolute -bottom-12 shadow-xl border-[4px] border-red-500">
+        <Avatar className="w-[100px] h-[100px] absolute -bottom-10 left-2 shadow-xl border-[4px] border-red-500">
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>
-      <div className="mt-16  flex flex-col gap-2">
+      <div className="mt-14  flex flex-col gap-2">
         <span className="flex items-center gap-2">
           <p className="bg-red-400 text-white shadow-xl rounded-full text-xs px-2 py-0.5">
             username
